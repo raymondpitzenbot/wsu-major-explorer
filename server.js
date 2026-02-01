@@ -1,5 +1,5 @@
 
-import { enforceAiLimits } from "./utils/rateLimit.ts";
+import { enforceAiLimits } from "./utils/rateLimit.js";
 import cors from "cors";
 import express from "express";
 import OpenAI from "openai";
