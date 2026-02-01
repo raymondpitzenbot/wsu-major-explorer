@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { DataProvider } from './contexts/DataContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { CompareProvider } from './contexts/CompareContext';
@@ -31,6 +32,7 @@ const App: React.FC = () => {
                     </HashRouter>
                 </CompareProvider>
             </DataProvider>
+            <SpeedInsights />
         </ThemeProvider>
     );
 };
