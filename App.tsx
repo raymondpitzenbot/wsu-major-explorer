@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { DataProvider } from './contexts/DataContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { CompareProvider } from './contexts/CompareContext';
@@ -29,6 +30,7 @@ const App: React.FC = () => {
                             </Route>
                         </Routes>
                     </HashRouter>
+                    <Analytics />
                 </CompareProvider>
             </DataProvider>
         </ThemeProvider>
