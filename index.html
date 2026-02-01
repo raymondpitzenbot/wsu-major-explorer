@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WSU Major Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Sora', 'sans-serif'],
+              body: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                50: '#eef2ff',
+                100: '#e0e7ff',
+                200: '#c7d2fe',
+                300: '#a5b4fc',
+                400: '#818cf8',
+                500: '#6366f1',
+                600: '#4f46e5',
+                700: '#4338ca',
+                800: '#3730a3',
+                900: '#312e81',
+              },
+              gray: {
+                50: '#f9fafb',
+                100: '#f3f4f6',
+                200: '#e5e7eb',
+                300: '#d1d5db',
+                400: '#9ca3af',
+                500: '#6b7280',
+                600: '#4b5563',
+                700: '#374151',
+                800: '#1f2937',
+                900: '#111827',
+                950: '#0a0a0a',
+              },
+              success: { 300: '#6CE9A6' },
+              error: { 300: '#FDA29B' },
+            }
+          }
+        }
+      }
+    </script>
+<style>
+  html, body, #root {
+    height: 100%;
+  }
+
+  .animated-gradient {
+    background: linear-gradient(-45deg, #4f46e5, #3b82f6, #14b8a6, #22c55e);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .card-animation {
+    animation: card-enter 0.5s ease-out both;
+  }
+   @keyframes card-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
+    background-color: #0a0a0a;
+  }
+  
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate(40px, -60px) scale(1.2) rotate(10deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+    animation: float 8s infinite ease-in-out;
+    opacity: 1;
+  }
+
+  .aurora-background {
+    position: relative;
+    overflow: hidden;
+  }
+  .aurora-background::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(ellipse at var(--pos1, 20% 20%), var(--color1, rgba(79, 70, 229, 0.35)) 0%, transparent 50%),
+                      radial-gradient(ellipse at var(--pos2, 80% 70%), var(--color2, rgba(30, 64, 175, 0.35)) 0%, transparent 50%),
+                      radial-gradient(ellipse at var(--pos3, 50% 90%), var(--color3, rgba(22, 163, 74, 0.25)) 0%, transparent 50%);
+    background-size: 200% 200%;
+    animation: aurora 15s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes aurora {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background-image: radial-gradient(circle, rgba(67, 56, 202, 0.2) 0%, rgba(67, 56, 202, 0) 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .program-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 0.6rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: -1;
+  }
+
+  .group:hover .program-card.glow-cyan::after { opacity: 0.7; box-shadow: 0 0 15px 2px #06b6d4; }
+  .group:hover .program-card.glow-amber::after { opacity: 0.7; box-shadow: 0 0 15px 2px #f59e0b; }
+  .group:hover .program-card.glow-indigo::after { opacity: 0.7; box-shadow: 0 0 15px 2px #6366f1; }
+  .group:hover .program-card.glow-rose::after { opacity: 0.7; box-shadow: 0 0 15px 2px #f43f5e; }
+  .group:hover .program-card.glow-emerald::after { opacity: 0.7; box-shadow: 0 0 15px 2px #10b981; }
+  .group:hover .program-card.glow-slate::after { opacity: 0.7; box-shadow: 0 0 15px 2px #64748b; }
+
+  .scroll-animate {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .scroll-animate.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes rainbow-spin {
+    to { --angle: 360deg; }
+  }
+  .rainbow-edge {
+    position: relative;
+  }
+  .rainbow-edge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1.5px; /* border thickness */
+    background: conic-gradient(from var(--angle), #6366f1, #f43f5e, #f59e0b, #10b981, #06b6d4, #6366f1);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box, /* inner transparent */
+        linear-gradient(#fff 0 0); /* outer opaque */
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rainbow-spin 4s linear infinite;
+    pointer-events: none;
+  }
+
+  .scroll-shadows {
+    background:
+      /* Shadow Cover TOP */
+      linear-gradient(to bottom, #0a0a0a 40%, transparent),
+      /* Shadow Cover BOTTOM */
+      linear-gradient(to top, #0a0a0a 40%, transparent),
+      /* Shadow TOP */
+      radial-gradient(farthest-side at 50% 0, rgba(0,0,0, 0.4), transparent),
+      /* Shadow BOTTOM */
+      radial-gradient(farthest-side at 50% 100%, rgba(0,0,0, 0.4), transparent);
+    background-repeat: no-repeat;
+    background-size: 100% 24px, 100% 24px, 100% 8px, 100% 8px;
+    background-attachment: local, local, scroll, scroll;
+  }
+
+  .message-bubble-animation {
+    animation: message-enter 0.4s ease-out both;
+  }
+  @keyframes message-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "openai": "https://esm.sh/openai@^4.52.7",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "next": "https://esm.sh/next@^16.1.6",
+    "@upstash/redis": "https://esm.sh/@upstash/redis@^1.33.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-gray-950 font-body">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>

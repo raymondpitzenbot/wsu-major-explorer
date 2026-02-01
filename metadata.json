@@ -1,0 +1,5 @@
+{
+  "name": "WSU Major Explorer",
+  "description": "An interactive Major Explorer & Comparison Dashboard for Winona State University (WSU). It provides trusted, authoritative data on academic programs, enrollment trends, and career outcomes to help students make informed decisions.",
+  "requestFramePermissions": []
+}
