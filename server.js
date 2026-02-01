@@ -1,3 +1,5 @@
+
+import { enforceAiLimits } from "./utils/rateLimit.ts";
 import cors from "cors";
 import express from "express";
 import OpenAI from "openai";
@@ -25,6 +27,8 @@ const openai = new OpenAI({
 });
 
 app.post("/api/chat", async (req, res) => {
+const ok = await enforceAiLimits(req, res);
+if (!ok) return;
   try {
     const { chatHistory, userQuery } = req.body || {};
 
