@@ -66,7 +66,7 @@ export async function enforceAiLimits(req, res) {
   } catch (err) {
     console.error("[rateLimit] error:", err?.message || err);
     // Fail CLOSED to protect credits (no AI call)
-    res.status(503).json({ error: "Rate limiter unavailable. Try again later." });
+res.status(503).json({ error: "Rate limiter unavailable", detail: (err?.message || String(err)) });
     return false;
   }
 }
