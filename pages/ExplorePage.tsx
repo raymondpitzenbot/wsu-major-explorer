@@ -10,17 +10,15 @@ import DynamicBackground from '../components/DynamicBackground';
 
 const useClickOutside = (ref: React.RefObject<HTMLDivElement>, handler: () => void) => {
     useEffect(() => {
-        const listener = (event: MouseEvent | TouchEvent) => {
+        const listener = (event: PointerEvent) => {
             if (!ref.current || ref.current.contains(event.target as Node)) {
                 return;
             }
             handler();
         };
-        document.addEventListener('mousedown', listener);
-        document.addEventListener('touchstart', listener);
+        document.addEventListener('pointerdown', listener);
         return () => {
-            document.removeEventListener('mousedown', listener);
-            document.removeEventListener('touchstart', listener);
+            document.removeEventListener('pointerdown', listener);
         };
     }, [ref, handler]);
 };
@@ -42,9 +40,10 @@ const FilterDropdown: React.FC<{
     return (
         <div className="relative" ref={dropdownRef}>
             <button
+                type="button"
                 onClick={() => setIsOpen(!isOpen)}
                 onMouseDown={(e) => e.preventDefault()}
-                className="flex items-center justify-between w-full px-4 py-2 bg-gray-900 border border-gray-800 rounded-md text-sm font-medium mouse:hover:bg-gray-800"
+                className="flex items-center justify-between w-full px-4 py-2 bg-gray-900 border border-gray-800 rounded-md text-sm font-medium mouse:hover:bg-gray-800 touch-manipulation select-none"
             >
                 <span className="font-body">{title} {selected.length > 0 && `(${selected.length})`}</span>
                 <ChevronDown size={16} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -54,7 +53,7 @@ const FilterDropdown: React.FC<{
             >
                 <div className="max-h-60 overflow-y-auto">
                     {options.map(option => (
-                        <label key={option} className="flex items-center gap-2 p-2 rounded-md mouse:hover:bg-gray-800 cursor-pointer text-sm font-body">
+                        <label key={option} className="flex items-center gap-2 p-2 rounded-md mouse:hover:bg-gray-800 cursor-pointer text-sm font-body touch-manipulation">
                             <input
                                 type="checkbox"
                                 className="h-4 w-4 rounded border-gray-700 text-primary-600 focus:ring-primary-500 bg-gray-800"
