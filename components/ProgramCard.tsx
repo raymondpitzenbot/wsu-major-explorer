@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Program } from '../types';
 import { useCompare } from '../contexts/CompareContext';
 import { Plus, Minus, ArrowRight, BookOpen, MapPin } from 'lucide-react';
@@ -10,6 +9,7 @@ interface ProgramCardProps {
 }
 
 const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
+    const navigate = useNavigate();
     const { addToCompare, removeFromCompare, isComparing } = useCompare();
     const isAddedToCompare = isComparing(program.program_id);
 
@@ -24,6 +24,14 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
             }
         }
     }
+
+    const handleCardClick = (e: React.PointerEvent | React.MouseEvent) => {
+        // Allow default behavior for modifier keys (new tab, etc) if it was a click
+        if (e.type === 'click' && ((e as React.MouseEvent).ctrlKey || (e as React.MouseEvent).metaKey)) return;
+
+        e.preventDefault();
+        navigate(`/program/${program.program_id}`);
+    };
 
     const collegeColorMap: Record<string, string> = {
         'College of Business': 'border-cyan-500',
@@ -48,7 +56,12 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
     const glowClass = collegeGlowMap[program.department?.college_name || ''] || 'glow-slate';
 
     return (
-        <Link to={`/program/${program.program_id}`} className="group relative block h-full touch-manipulation">
+        <div
+            role="link"
+            tabIndex={0}
+            onPointerUp={handleCardClick}
+            className="group relative block h-full touch-manipulation cursor-pointer"
+        >
             <div className={`program-card ${glowClass} h-full bg-gray-900 p-6 rounded-lg border ${borderColorClass} transition-all duration-300 mouse:group-hover:border-primary-500 mouse:group-hover:bg-gray-800/50`}>
                 <div className="flex flex-col h-full">
                     <div className="flex justify-between items-start mb-4">
@@ -87,7 +100,7 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
                     </div>
                 </div>
             </div>
-        </Link>
+        </div>
     );
 };
 
