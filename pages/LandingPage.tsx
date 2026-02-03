@@ -5,7 +5,6 @@ import { interestMappings } from '../data/wsuData';
 import { useData } from '../contexts/DataContext';
 import DynamicBackground from '../components/DynamicBackground';
 
-const promptBubbles = Object.keys(interestMappings);
 
 const useAnimateOnScroll = (ref: React.RefObject<HTMLElement>) => {
     useEffect(() => {
@@ -77,12 +76,18 @@ const LandingPage: React.FC = () => {
     const { programs } = useData();
     const [currentPrompt, setCurrentPrompt] = useState(0);
 
+    const promptBubbles = React.useMemo(() => {
+        const bubbles = Object.keys(interestMappings);
+        return [...bubbles].sort(() => Math.random() - 0.5);
+    }, []);
+
     useEffect(() => {
+        if (promptBubbles.length === 0) return;
         const interval = setInterval(() => {
             setCurrentPrompt((prev) => (prev + 1) % promptBubbles.length);
         }, 3000);
         return () => clearInterval(interval);
-    }, []);
+    }, [promptBubbles]);
 
     const textShadowStyle = { textShadow: '0 2px 10px rgba(0,0,0,0.5)' };
     const totalPrograms = programs.length || '200+';

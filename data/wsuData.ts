@@ -570,7 +570,11 @@ export const interestMappings: { [key: string]: { id: string; keywords: string[]
     'work with technology': { id: 'tech', keywords: ['computer science', 'engineering', 'information systems', 'data science', 'bioinformatics', 'i-design', 'geospatial', 'technology', 'tech', 'software'] },
     'understand the world': { id: 'understanding', keywords: ['history', 'sociology', 'political science', 'economics', 'global studies', 'philosophy', 'ethnic studies', 'geography', 'culture', 'society'] },
     'lead and manage': { id: 'leadership', keywords: ['business administration', 'management', 'leadership', 'public administration', 'marketing', 'finance', 'human resource', 'manager', 'executive'] },
-    'explore science': { id: 'science', keywords: ['biology', 'chemistry', 'physics', 'geoscience', 'environmental science', 'biochemistry', 'ecology', 'exercise science', 'laboratory', 'scientific'] }
+    'explore science': { id: 'science', keywords: ['biology', 'chemistry', 'physics', 'geoscience', 'environmental science', 'biochemistry', 'ecology', 'exercise science', 'laboratory', 'scientific'] },
+    'protect the environment': { id: 'environment', keywords: ['environmental', 'ecology', 'nature', 'wildlife', 'sustainability', 'geoscience', 'earth science'] },
+    'work with numbers': { id: 'math', keywords: ['mathematics', 'statistics', 'accounting', 'finance', 'economics', 'data', 'math', 'actuarial'] },
+    'advocate for others': { id: 'advocacy', keywords: ['law', 'political science', 'sociology', 'social work', 'advocacy', 'justice', 'legal', 'correctional'] },
+    'work in healthcare': { id: 'healthcare', keywords: ['nursing', 'health', 'exercise science', 'pre-medical', 'clinical', 'therapeutic', 'medical', 'imaging', 'laboratory'] }
 };
 
 export const clubs: Club[] = [
