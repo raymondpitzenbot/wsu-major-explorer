@@ -56,7 +56,7 @@ const AdvisorPage: React.FC = () => {
         // Scroll to the user's new message, but don't force scroll for AI response
         setTimeout(() => scrollToBottom('smooth'), 100);
 
-        const chatHistoryForApi = [...messages, userMessage].map(msg => ({
+        const chatHistoryForApi = [...messages, userMessage].slice(-8).map(msg => ({
             role: msg.role,
             parts: [{ text: msg.text }]
         }));
@@ -136,16 +136,22 @@ const AdvisorPage: React.FC = () => {
                     )}
 
                     <div className="flex-shrink-0 p-4 bg-black/30 border-t border-white/10">
-                        <div className="flex items-center gap-3">
-                            <input
-                                type="text"
-                                value={input}
-                                onChange={e => setInput(e.target.value)}
-                                onKeyPress={e => e.key === 'Enter' && handleSend()}
-                                placeholder="Ask about majors, careers, or college life..."
-                                className="font-body flex-1 w-full px-4 py-2 bg-gray-800 rounded-full border border-gray-700 focus:ring-2 focus:ring-primary-500 focus:outline-none transition"
-                                disabled={isLoading}
-                            />
+                        <div className="relative flex items-center gap-3">
+                            <div className="flex-1 relative">
+                                <input
+                                    type="text"
+                                    value={input}
+                                    maxLength={1000}
+                                    onChange={e => setInput(e.target.value)}
+                                    onKeyPress={e => e.key === 'Enter' && handleSend()}
+                                    placeholder="Ask about majors, careers, or college life..."
+                                    className="font-body w-full px-4 py-2 pr-12 bg-gray-800 rounded-full border border-gray-700 focus:ring-2 focus:ring-primary-500 focus:outline-none transition"
+                                    disabled={isLoading}
+                                />
+                                <span className={`absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-mono ${input.length >= 900 ? 'text-rose-500' : 'text-gray-500'}`}>
+                                    {input.length}/1000
+                                </span>
+                            </div>
                             <button onClick={() => handleSend()} disabled={isLoading || !input.trim()} className="w-10 h-10 flex-shrink-0 rounded-full bg-primary-600 text-white flex items-center justify-center hover:bg-primary-700 disabled:bg-gray-700 disabled:cursor-not-allowed transition">
                                 <Send size={20} />
                             </button>

@@ -13,9 +13,9 @@ const AI_ENABLED = process.env.AI_ENABLED ?? "true";
 
 // Security & Cost-Control Limits from Environment Variables
 const RATE_LIMIT_MAX_REQUESTS = Number(process.env.RATE_LIMIT_MAX_REQUESTS ?? 15);
-const MAX_INPUT_CHARS = Number(process.env.MAX_INPUT_CHARS ?? 3000);
+const MAX_INPUT_CHARS = Number(process.env.MAX_INPUT_CHARS ?? 1000);
 const MAX_OUTPUT_TOKENS = Number(process.env.MAX_OUTPUT_TOKENS ?? 250);
-const MAX_HISTORY_MESSAGES = Number(process.env.MAX_HISTORY_MESSAGES ?? 12);
+const MAX_HISTORY_MESSAGES = Number(process.env.MAX_HISTORY_MESSAGES ?? 8);
 const MAX_HISTORY_MSG_CHARS = Number(process.env.MAX_HISTORY_MSG_CHARS ?? 2000);
 
 if (!OPENAI_API_KEY) {
@@ -94,7 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .slice(-MAX_HISTORY_MESSAGES)
       .map((msg: any) => {
         const text = msg?.parts?.[0]?.text ?? "";
-        const role = msg?.role === "model" ? "assistant" : "user";
+        const role = (msg?.role === "model" ? "assistant" : "user") as "assistant" | "user";
         return { role, content: String(text).slice(0, MAX_HISTORY_MSG_CHARS) };
       });
 
