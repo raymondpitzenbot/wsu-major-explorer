@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import { GraduationCap, Menu, X, Hammer } from 'lucide-react';
 
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isConstructionTooltipOpen, setIsConstructionTooltipOpen] = useState(false);
 
@@ -111,10 +112,25 @@ const Header: React.FC = () => {
             {isMenuOpen && (
                 <div className="md:hidden" id="mobile-menu">
                     <nav className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <NavLink to="/explore" className={mobileNavLinkClasses} onClick={() => setIsMenuOpen(false)}>Explore</NavLink>
-                        <NavLink to="/compare" className={mobileNavLinkClasses} onClick={() => setIsMenuOpen(false)}>Compare</NavLink>
-                        <NavLink to="/advisor" className={mobileNavLinkClasses} onClick={() => setIsMenuOpen(false)}>Advisor</NavLink>
-                        <NavLink to="/about" className={mobileNavLinkClasses} onClick={() => setIsMenuOpen(false)}>About</NavLink>
+                        {['/explore', '/compare', '/advisor', '/about'].map((path) => {
+                            const name = path.substring(1).charAt(0).toUpperCase() + path.substring(2);
+                            const isActive = location.pathname === path;
+                            return (
+                                <div
+                                    key={path}
+                                    role="link"
+                                    tabIndex={0}
+                                    className={mobileNavLinkClasses({ isActive })}
+                                    onPointerUp={(e) => {
+                                        e.preventDefault();
+                                        navigate(path);
+                                        setIsMenuOpen(false);
+                                    }}
+                                >
+                                    {name}
+                                </div>
+                            );
+                        })}
                     </nav>
                 </div>
             )}

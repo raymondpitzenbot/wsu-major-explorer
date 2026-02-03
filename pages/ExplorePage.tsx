@@ -57,12 +57,19 @@ const FilterDropdown: React.FC<{
             >
                 <div className="max-h-60 overflow-y-auto">
                     {options.map(option => (
-                        <label key={option} className="flex items-center gap-2 p-2 rounded-md mouse:hover:bg-gray-800 cursor-pointer text-sm font-body touch-manipulation">
+                        <label
+                            key={option}
+                            onPointerUp={(e) => {
+                                e.preventDefault();
+                                handleOptionChange(option);
+                            }}
+                            className="flex items-center gap-2 p-2 rounded-md mouse:hover:bg-gray-800 cursor-pointer text-sm font-body touch-manipulation"
+                        >
                             <input
                                 type="checkbox"
-                                className="h-4 w-4 rounded border-gray-700 text-primary-600 focus:ring-primary-500 bg-gray-800"
+                                className="h-4 w-4 rounded border-gray-700 text-primary-600 focus:ring-primary-500 bg-gray-800 pointer-events-none"
                                 checked={selected.includes(option)}
-                                onChange={() => handleOptionChange(option)}
+                                readOnly
                             />
                             {option}
                         </label>
