@@ -82,9 +82,12 @@ const Header: React.FC = () => {
 
                         <div className="md:hidden">
                             <button
-                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                onPointerUp={(e) => {
+                                    e.preventDefault();
+                                    setIsMenuOpen(!isMenuOpen);
+                                }}
                                 type="button"
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 active:text-white active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors"
+                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 active:text-white active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors touch-manipulation"
                                 aria-controls="mobile-menu"
                                 aria-expanded={isMenuOpen}
                             >
