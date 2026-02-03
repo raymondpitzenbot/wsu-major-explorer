@@ -13,7 +13,7 @@ const getRankedDepartments = (): Department[] => {
     const sortedByEnrollment = [...departments]
         .filter(d => d.total_enrollment_fall_2021 != null)
         .sort((a, b) => (b.total_enrollment_fall_2021 || 0) - (a.total_enrollment_fall_2021 || 0));
-    
+
     const withRank = sortedByEnrollment.map((dept, index) => ({ ...dept, rank: index + 1 }));
 
     // Create a map to add ranks back to the original, alphabetically sorted list
@@ -21,7 +21,7 @@ const getRankedDepartments = (): Department[] => {
     const finalDepartments = [...departments]
         .map(d => ({ ...d, rank: rankMap.get(d.department_id) }))
         .sort((a, b) => a.department_name.localeCompare(b.department_name));
-    
+
     rankedDepartments = finalDepartments;
     return rankedDepartments;
 }
@@ -39,7 +39,7 @@ const joinData = (): Program[] => {
         }
         outcomesByProgram.get(outcome.program_id)?.push(outcome);
     });
-    
+
     const clubsByCollege = new Map<string, any[]>();
     clubs.forEach(club => {
         if (!clubsByCollege.has(club.college_name)) {
@@ -53,14 +53,28 @@ const joinData = (): Program[] => {
         const enrollment = enrollmentsMap.get(p.program_id);
         const graduates = graduatesMap.get(p.program_id);
         const outcomes = outcomesByProgram.get(p.program_id) || [];
-        const relatedClubs = department ? clubsByCollege.get(department.college_name) || [] : [];
-        
+
+        // Find most relevant clubs
+        const collegeClubs = department ? clubsByCollege.get(department.college_name) || [] : [];
+        const programNameWords = p.program_name.toLowerCase().split(/[\s,/-]+/).filter(w => w.length > 2);
+        const stopWords = ['club', 'association', 'society', 'winona', 'state', 'wsu', 'the', 'and', 'for', 'international', 'student', 'professional'];
+
+        const relatedClubs = collegeClubs
+            .map(club => {
+                const clubNameWords = club.club_name.toLowerCase().split(/[\s,/-]+/).filter(w => w.length > 2);
+                const score = clubNameWords.filter(w => !stopWords.includes(w) && programNameWords.includes(w)).length;
+                return { club, score };
+            })
+            .sort((a, b) => b.score - a.score || a.club.club_name.localeCompare(b.club.club_name))
+            .slice(0, 3)
+            .map(item => item.club);
+
         let score = 0;
         if (enrollment) score++;
         if (graduates) score++;
         if (outcomes.length > 0) score++;
         if (relatedClubs.length > 0) score++;
-        
+
         return {
             ...p,
             department: department,
