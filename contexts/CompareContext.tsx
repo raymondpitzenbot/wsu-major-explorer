@@ -9,6 +9,8 @@ interface CompareContextType {
     removeFromCompare: (programId: string) => void;
     clearCompare: () => void;
     isComparing: (programId: string) => boolean;
+    isTrayVisible: boolean;
+    setIsTrayVisible: (visible: boolean) => void;
 }
 
 const MAX_COMPARE = 4;
@@ -27,6 +29,7 @@ export const CompareProvider: React.FC<{ children: ReactNode }> = ({ children })
         }
         return [];
     });
+    const [isTrayVisible, setIsTrayVisible] = useState(true);
 
     const setCompareList = (programs: Program[]) => {
         setCompareListState(programs);
@@ -39,6 +42,7 @@ export const CompareProvider: React.FC<{ children: ReactNode }> = ({ children })
         if (compareList.length < MAX_COMPARE && !compareList.find(p => p.program_id === program.program_id)) {
             const newList = [...compareList, program];
             setCompareList(newList);
+            setIsTrayVisible(true);
             return true;
         }
         return false;
@@ -58,7 +62,7 @@ export const CompareProvider: React.FC<{ children: ReactNode }> = ({ children })
     };
 
     return (
-        <CompareContext.Provider value={{ compareList, addToCompare, setCompareList, removeFromCompare, clearCompare, isComparing }}>
+        <CompareContext.Provider value={{ compareList, addToCompare, setCompareList, removeFromCompare, clearCompare, isComparing, isTrayVisible, setIsTrayVisible }}>
             {children}
         </CompareContext.Provider>
     );
