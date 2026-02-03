@@ -564,13 +564,13 @@ export const careerOutcomes: (CareerOutcome & { program_id: string })[] = [
 ];
 
 export const interestMappings: { [key: string]: { id: string; keywords: string[] } } = {
-    'help people': { id: 'helping', keywords: ['social work', 'nursing', 'counseling', 'education', 'health', 'psychology', 'therapeutic'] },
-    'be creative': { id: 'creative', keywords: ['art', 'design', 'music', 'theatre', 'writing', 'communication', 'media', 'advertising', 'film'] },
-    'solve problems': { id: 'problem-solving', keywords: ['engineering', 'computer science', 'mathematics', 'physics', 'data science', 'business analysis', 'economics', 'law'] },
-    'work with technology': { id: 'tech', keywords: ['computer science', 'engineering', 'information systems', 'data science', 'bioinformatics', 'i-design', 'geospatial'] },
-    'understand the world': { id: 'understanding', keywords: ['history', 'sociology', 'political science', 'economics', 'global studies', 'philosophy', 'ethnic studies', 'geography'] },
-    'lead and manage': { id: 'leadership', keywords: ['business administration', 'management', 'leadership', 'public administration', 'marketing', 'finance', 'human resource'] },
-    'explore science': { id: 'science', keywords: ['biology', 'chemistry', 'physics', 'geoscience', 'environmental science', 'biochemistry', 'ecology', 'exercise science'] }
+    'help people': { id: 'helping', keywords: ['social work', 'nursing', 'counseling', 'education', 'teaching', 'teach', 'health', 'psychology', 'therapeutic', 'human services'] },
+    'be creative': { id: 'creative', keywords: ['art', 'design', 'music', 'theatre', 'writing', 'communication', 'media', 'advertising', 'film', 'creative', 'storytelling'] },
+    'solve problems': { id: 'problem-solving', keywords: ['engineering', 'computer science', 'mathematics', 'physics', 'data science', 'business analysis', 'economics', 'law', 'problem solving', 'analyst'] },
+    'work with technology': { id: 'tech', keywords: ['computer science', 'engineering', 'information systems', 'data science', 'bioinformatics', 'i-design', 'geospatial', 'technology', 'tech', 'software'] },
+    'understand the world': { id: 'understanding', keywords: ['history', 'sociology', 'political science', 'economics', 'global studies', 'philosophy', 'ethnic studies', 'geography', 'culture', 'society'] },
+    'lead and manage': { id: 'leadership', keywords: ['business administration', 'management', 'leadership', 'public administration', 'marketing', 'finance', 'human resource', 'manager', 'executive'] },
+    'explore science': { id: 'science', keywords: ['biology', 'chemistry', 'physics', 'geoscience', 'environmental science', 'biochemistry', 'ecology', 'exercise science', 'laboratory', 'scientific'] }
 };
 
 export const clubs: Club[] = [

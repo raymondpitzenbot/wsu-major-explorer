@@ -137,8 +137,16 @@ const ExplorePage: React.FC = () => {
             const interestKeywords = Object.values(interestMappings).find(i => i.id === interestId)?.keywords;
             if (interestKeywords) {
                 basePrograms = basePrograms.filter(p => {
-                    const programText = `${p.program_name} ${p.short_description} ${p.overview}`.toLowerCase();
-                    return interestKeywords.some(kw => programText.includes(kw));
+                    // Combine name and short description, but exclude the "overview" which is too broad
+                    // and often contains filler words.
+                    const programText = `${p.program_name} ${p.short_description}`.toLowerCase();
+
+                    // Use word boundary to avoid matching "art" in "department" or "science" in "Bachelor of Science"
+                    // while still allowing matches for the whole keyword.
+                    return interestKeywords.some(kw => {
+                        const regex = new RegExp(`\\b${kw}\\b`, 'i');
+                        return regex.test(programText);
+                    });
                 });
             }
         }
