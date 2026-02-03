@@ -99,8 +99,8 @@ const LandingPage: React.FC = () => {
                 <div className="min-h-[calc(80vh)] flex items-center justify-center spotlight relative z-10">
                     <div className="text-center px-6 lg:px-8">
                         <div className="mx-auto max-w-4xl">
-                            <h1 className="text-5xl font-semibold tracking-tight text-white sm:text-8xl" style={textShadowStyle}>
-                                Find Your Path
+                            <h1 className="text-5xl font-semibold tracking-tight text-white sm:text-7xl lg:text-8xl" style={textShadowStyle}>
+                                Major Decisions, Made Simpler.
                             </h1>
                             <div className="mt-8 text-lg text-white" style={textShadowStyle}>
                                 <div className="relative h-10 w-80 mx-auto">
@@ -119,8 +119,8 @@ const LandingPage: React.FC = () => {
                                     ))}
                                 </div>
                             </div>
-                            <p className="mt-8 text-lg leading-8 text-white font-body" style={textShadowStyle}>
-                                Explore academic programs at Winona State University, and chat with our AI advisor to find the program that's right for you.
+                            <p className="mt-8 text-lg leading-8 text-white font-body max-w-2xl mx-auto" style={textShadowStyle}>
+                                All the information students search for — brought together to support one clear decision.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
@@ -144,16 +144,13 @@ const LandingPage: React.FC = () => {
             <div className="bg-gray-950 py-24 sm:py-32">
                 <div className="container mx-auto px-4 space-y-24 lg:space-y-32">
                     <div className="text-center">
-                        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">A Toolkit for Your Academic Journey</h2>
-                        <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-400 font-body">
-                            Everything you need to make an informed decision, all in one place.
-                        </p>
+                        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">Different tools for different questions.</h2>
                     </div>
 
                     <FeatureBlock
                         orientation="left"
-                        title="Explore All Programs"
-                        description="Dive into our comprehensive catalog of majors, minors, and pre-professional programs. Use powerful search and filtering tools to narrow down your options based on your interests, college, or degree type."
+                        title="Explore your options"
+                        description="See what’s available, how programs are structured, and where they lead. No more jumping between departments and pages."
                         linkTo="/explore"
                         linkText="Start Exploring"
                         stat={<FeatureStatCard value={String(totalPrograms)} label="Programs & Pathways" gradient="bg-gradient-to-br from-cyan-500 to-blue-600" />}
@@ -161,8 +158,8 @@ const LandingPage: React.FC = () => {
 
                     <FeatureBlock
                         orientation="right"
-                        title="Compare Side-by-Side"
-                        description="Can't decide between a few options? Add them to your compare list to see a detailed, side-by-side breakdown of credits, enrollment data, career outcomes, and more."
+                        title="Compare what actually matters"
+                        description="Put options side by side to see differences in coursework, commitment, outcomes, and direction — all in one view."
                         linkTo="/compare"
                         linkText="Compare Programs"
                         stat={<FeatureStatCard value="4" label="Programs at once" gradient="bg-gradient-to-br from-purple-500 to-indigo-600" />}
@@ -170,8 +167,8 @@ const LandingPage: React.FC = () => {
 
                     <FeatureBlock
                         orientation="left"
-                        title="Chat with an AI Advisor"
-                        description="Have questions? Our AI-powered advisor, Warrior Bot, can provide instant answers about programs, career paths, and student life. It's available 24/7 to help you on your journey."
+                        title="Get clarity when you’re stuck"
+                        description="Ask questions, sanity-check options, and get explanations when things feel unclear."
                         linkTo="/advisor"
                         linkText="Ask the Advisor"
                         stat={<FeatureStatCard value="24/7" label="AI Support" gradient="bg-gradient-to-br from-rose-500 to-red-600" />}
