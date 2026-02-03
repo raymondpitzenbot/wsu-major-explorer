@@ -48,7 +48,7 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
     const glowClass = collegeGlowMap[program.department?.college_name || ''] || 'glow-slate';
 
     return (
-        <Link to={`/program/${program.program_id}`} className="group relative block h-full">
+        <Link to={`/program/${program.program_id}`} className="group relative block h-full touch-manipulation">
             <div className={`program-card ${glowClass} h-full bg-gray-900 p-6 rounded-lg border ${borderColorClass} transition-all duration-300 mouse:group-hover:border-primary-500 mouse:group-hover:bg-gray-800/50`}>
                 <div className="flex flex-col h-full">
                     <div className="flex justify-between items-start mb-4">
@@ -76,8 +76,9 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
                             View Details <ArrowRight size={16} className="transition-transform mouse:group-hover:translate-x-1" />
                         </div>
                         <button
+                            type="button"
                             onClick={handleCompareToggle}
-                            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 ${isAddedToCompare ? 'bg-primary-600 text-white mouse:hover:bg-red-500 mouse:hover:rotate-90' : 'bg-gray-700 text-gray-300 opacity-100 mouse:opacity-0 mouse:group-hover:opacity-100 mouse:hover:bg-primary-600 mouse:hover:text-white'}`}
+                            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 touch-manipulation ${isAddedToCompare ? 'bg-primary-600 text-white mouse:hover:bg-red-500 mouse:hover:rotate-90' : 'bg-gray-700 text-gray-300 opacity-100 mouse:opacity-0 mouse:group-hover:opacity-100 mouse:hover:bg-primary-600 mouse:hover:text-white'}`}
                             aria-label={isAddedToCompare ? "Remove from Compare" : "Add to Compare"}
                             title={isAddedToCompare ? "Remove from Compare" : "Add to Compare"}
                         >
