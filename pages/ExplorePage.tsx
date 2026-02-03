@@ -34,7 +34,7 @@ const FilterDropdown: React.FC<{
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     useClickOutside(dropdownRef, () => setIsOpen(false));
-    
+
     const handleOptionChange = (option: string) => {
         onChange(option);
     };
@@ -48,7 +48,7 @@ const FilterDropdown: React.FC<{
                 <span className="font-body">{title} {selected.length > 0 && `(${selected.length})`}</span>
                 <ChevronDown size={16} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
             </button>
-            <div 
+            <div
                 className={`absolute top-full mt-2 w-64 bg-gray-900 border border-gray-800 rounded-md shadow-lg z-10 p-2 transition-all duration-200 ease-out origin-top ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
             >
                 <div className="max-h-60 overflow-y-auto">
@@ -73,7 +73,7 @@ const ExplorePage: React.FC = () => {
     const { programs, loading } = useData();
     const location = useLocation();
     const navigate = useNavigate();
-    
+
     const [filters, setFilters] = useState<Record<string, string[]>>({});
     const [searchTerm, setSearchTerm] = useState('');
     const [isScrolled, setIsScrolled] = useState(false);
@@ -93,7 +93,7 @@ const ExplorePage: React.FC = () => {
     const filterOptions = useMemo(() => ({
         'Credential Level': getCredentialLevels(),
         'College': getColleges().filter(c => c !== "Uncategorized" && c !== "Pre-Professional Pathways"),
-        'Degree Type': getDegreeTypes(),
+        'Degree Type': ['All Bachelors Degrees', ...getDegreeTypes()],
         'Location': getLocations(),
     }), []);
 
@@ -103,7 +103,7 @@ const ExplorePage: React.FC = () => {
             const newValues = currentValues.includes(value)
                 ? currentValues.filter(v => v !== value)
                 : [...currentValues, value];
-            
+
             if (newValues.length === 0) {
                 const { [type]: _, ...rest } = prev;
                 return rest;
@@ -111,7 +111,7 @@ const ExplorePage: React.FC = () => {
             return { ...prev, [type]: newValues };
         });
     };
-    
+
     const clearFilters = () => {
         setFilters({});
         setSearchTerm('');
@@ -124,23 +124,30 @@ const ExplorePage: React.FC = () => {
 
         if (interestId) {
             const interestKeywords = Object.values(interestMappings).find(i => i.id === interestId)?.keywords;
-            if(interestKeywords) {
+            if (interestKeywords) {
                 basePrograms = basePrograms.filter(p => {
                     const programText = `${p.program_name} ${p.short_description} ${p.overview}`.toLowerCase();
                     return interestKeywords.some(kw => programText.includes(kw));
                 });
             }
         }
-        
+
         return basePrograms.filter(program => {
             const searchMatch = program.program_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                (program.department?.department_name || '').toLowerCase().includes(searchTerm.toLowerCase());
-            
+                (program.department?.department_name || '').toLowerCase().includes(searchTerm.toLowerCase());
+
             const filterMatch = Object.entries(filters).every(([type, values]) => {
                 if (!Array.isArray(values) || values.length === 0) return true;
                 const key = type.toLowerCase().replace(/ /g, '_');
                 if (key === 'college') return values.includes(program.department?.college_name || '');
-                if (key === 'degree_type') return values.includes(program.expanded_degree_type || '');
+                if (key === 'degree_type') {
+                    if (values.includes('All Bachelors Degrees')) {
+                        const otherValues = values.filter(v => v !== 'All Bachelors Degrees');
+                        const isBachelor = (program.expanded_degree_type || '').includes('Bachelor');
+                        return isBachelor || otherValues.includes(program.expanded_degree_type || '');
+                    }
+                    return values.includes(program.expanded_degree_type || '');
+                }
                 if (key === 'location') return values.some(val => program.location.includes(val));
                 if (key === 'credential_level') {
                     const levelMatch = values.includes(program.credential_level);
@@ -155,7 +162,7 @@ const ExplorePage: React.FC = () => {
             return searchMatch && filterMatch;
         });
     }, [programs, searchTerm, filters, interestId, loading]);
-    
+
     const activeFilterCount = Object.values(filters).flat().length + (interestId ? 1 : 0);
 
     return (
@@ -180,7 +187,7 @@ const ExplorePage: React.FC = () => {
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4">
                             {Object.entries(filterOptions).map(([title, options]) => (
-                                 <FilterDropdown
+                                <FilterDropdown
                                     key={title}
                                     title={title}
                                     options={options}
@@ -188,8 +195,8 @@ const ExplorePage: React.FC = () => {
                                     onChange={(option) => handleFilterChange(title, option)}
                                 />
                             ))}
-                             {activeFilterCount > 0 && (
-                                 <button onClick={clearFilters} className="px-4 py-2 text-sm font-semibold text-red-500 hover:text-red-400 flex-shrink-0 font-body">Clear Filters ({activeFilterCount})</button>
+                            {activeFilterCount > 0 && (
+                                <button onClick={clearFilters} className="px-4 py-2 text-sm font-semibold text-red-500 hover:text-red-400 flex-shrink-0 font-body">Clear Filters ({activeFilterCount})</button>
                             )}
                         </div>
                     </div>
@@ -199,7 +206,7 @@ const ExplorePage: React.FC = () => {
                     <p className="text-sm text-gray-400 mb-4 font-body">
                         Showing {processedPrograms.length} of {programs.length} programs.
                     </p>
-                     {loading ? (
+                    {loading ? (
                         <p className="font-body">Loading programs...</p>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -210,7 +217,7 @@ const ExplorePage: React.FC = () => {
                             ))}
                         </div>
                     )}
-                     {processedPrograms.length === 0 && !loading && (
+                    {processedPrograms.length === 0 && !loading && (
                         <div className="text-center py-16">
                             <h3 className="text-xl font-semibold">No Programs Found</h3>
                             <p className="text-gray-500 mt-2 font-body">Try adjusting your search or filters.</p>

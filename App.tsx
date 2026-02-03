@@ -12,12 +12,15 @@ import ComparePage from './pages/ComparePage';
 import AdvisorPage from './pages/AdvisorPage';
 import AboutPage from './pages/AboutPage';
 
+import ScrollToTop from './components/ScrollToTop';
+
 const App: React.FC = () => {
     return (
         <ThemeProvider>
             <DataProvider>
                 <CompareProvider>
                     <HashRouter>
+                        <ScrollToTop />
                         <Routes>
                             <Route path="/" element={<Layout />}>
                                 <Route index element={<LandingPage />} />

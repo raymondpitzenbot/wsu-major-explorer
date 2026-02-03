@@ -14,19 +14,25 @@ const AdvisorPage: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { compareList } = useCompare();
-    
+
     const [messages, setMessages] = useState<ChatMessage[]>([
         { role: 'model', text: "Hello! I am Warrior Bot, and I'm ready to help you explore academic programs at Winona State University.\n\nYou can ask me things like:\n- \"What majors does WSU have for biology?\"\n- \"Tell me about the Nursing program.\"\n- \"I like art and computers, what should I study?\"\n\nHow can I help you today?\n\nPlease remember to connect with an official WSU academic advisor for the most accurate and personalized guidance." }
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isScrolledUp, setIsScrolledUp] = useState(false);
-    
+
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = (behavior: 'smooth' | 'auto' = 'smooth') => {
-        messagesEndRef.current?.scrollIntoView({ behavior });
+        if (scrollContainerRef.current) {
+            const { scrollHeight, clientHeight } = scrollContainerRef.current;
+            scrollContainerRef.current.scrollTo({
+                top: scrollHeight - clientHeight,
+                behavior
+            });
+        }
     };
 
     const handleScroll = () => {
@@ -37,7 +43,7 @@ const AdvisorPage: React.FC = () => {
             setIsScrolledUp(!isAtBottom);
         }
     };
-    
+
     const handleSend = async (prefilledPrompt?: string) => {
         const query = prefilledPrompt || input;
         if (!query.trim()) return;
@@ -46,7 +52,7 @@ const AdvisorPage: React.FC = () => {
         setMessages(prev => [...prev, userMessage]);
         setInput('');
         setIsLoading(true);
-        
+
         // Scroll to the user's new message, but don't force scroll for AI response
         setTimeout(() => scrollToBottom('smooth'), 100);
 
@@ -66,7 +72,7 @@ const AdvisorPage: React.FC = () => {
             setIsLoading(false);
         }
     };
-    
+
     useLayoutEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         const prompt = searchParams.get('prompt');
@@ -75,7 +81,7 @@ const AdvisorPage: React.FC = () => {
             navigate(location.pathname, { replace: true });
         }
     }, [location.search]);
-    
+
     return (
         <div className={`relative flex flex-col h-[100dvh] min-h-0 overflow-hidden ${compareList.length > 0 ? 'pb-20 sm:pb-0' : ''}`}>
             <DynamicBackground className="absolute inset-0" />
@@ -101,7 +107,7 @@ const AdvisorPage: React.FC = () => {
                         ))}
                         <div ref={messagesEndRef} />
                     </div>
-                    
+
                     {isLoading && (
                         <div className="flex-shrink-0 px-4 sm:px-6 pt-4">
                             <div className="flex gap-3 justify-start">
@@ -109,26 +115,26 @@ const AdvisorPage: React.FC = () => {
                                     <Bot className="text-white" size={24} />
                                 </div>
                                 <div className="max-w-lg p-3 rounded-2xl bg-gray-800 text-white rounded-bl-none">
-                                <div className="flex items-center gap-2">
-                                    <span className="h-2 w-2 bg-primary-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                                    <span className="h-2 w-2 bg-primary-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                                    <span className="h-2 w-2 bg-primary-400 rounded-full animate-bounce"></span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="h-2 w-2 bg-primary-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                                        <span className="h-2 w-2 bg-primary-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                                        <span className="h-2 w-2 bg-primary-400 rounded-full animate-bounce"></span>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     )}
 
                     {isScrolledUp && (
-                        <button 
-                            onClick={() => scrollToBottom()} 
+                        <button
+                            onClick={() => scrollToBottom()}
                             className="absolute bottom-24 right-6 z-20 bg-primary-600 text-white rounded-full p-2 shadow-lg hover:bg-primary-500 transition-opacity animate-fade-in"
                             aria-label="Scroll to latest messages"
                         >
                             <ChevronDown size={24} />
                         </button>
                     )}
-                    
+
                     <div className="flex-shrink-0 p-4 bg-black/30 border-t border-white/10">
                         <div className="flex items-center gap-3">
                             <input
