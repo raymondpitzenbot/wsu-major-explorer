@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useCompare } from '../contexts/CompareContext';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { Program } from '../types';
 import { MessageCircle, Plus, Search, X, Share2, Check } from 'lucide-react';
 import { useData } from '../contexts/DataContext';
@@ -23,6 +23,7 @@ const ComparePage: React.FC = () => {
     const [showCopyToast, setShowCopyToast] = useState(false);
     const [isSharedView, setIsSharedView] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     // URL Sync on Mount
     useEffect(() => {
@@ -41,10 +42,15 @@ const ComparePage: React.FC = () => {
                 .filter(Boolean) as Program[];
 
             if (matchedPrograms.length > 0) {
-                setCompareList(matchedPrograms);
+                // Only update if the current list is different from the URL list
+                const currentIds = compareList.map(p => p.program_id).join(',');
+                const newIds = matchedPrograms.map(p => p.program_id).join(',');
+                if (currentIds !== newIds) {
+                    setCompareList(matchedPrograms);
+                }
             }
         }
-    }, [loading, programs, searchParams, setCompareList]);
+    }, [loading, programs, searchParams, setCompareList, compareList]);
 
     // SEO Updates
     useEffect(() => {
@@ -68,7 +74,11 @@ const ComparePage: React.FC = () => {
         if (compareList[2]) params.set('p3', compareList[2].program_id);
         if (compareList[3]) params.set('p4', compareList[3].program_id);
 
-        const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+        // Correctly handle HashRouter URLs: origin + pathname + #/compare?params
+        const baseUrl = window.location.href.split('#')[0];
+        const routedPath = location.pathname;
+        const url = `${baseUrl}#${routedPath}?${params.toString()}`;
+
         navigator.clipboard.writeText(url).then(() => {
             setShowCopyToast(true);
             setTimeout(() => setShowCopyToast(false), 3000);
