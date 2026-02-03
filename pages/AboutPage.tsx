@@ -1,24 +1,25 @@
 
 import React from 'react';
-import { Database, ListChecks, AlertTriangle, ExternalLink, Target, Info } from 'lucide-react';
+import { Database, ListChecks, AlertTriangle, ExternalLink, Target, Info, Mail } from 'lucide-react';
 
 const AboutPage: React.FC = () => {
   return (
     <div className="bg-gray-950 py-12 px-4 sm:px-6 lg:px-8 aurora-background">
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center">
-            <Info className="mx-auto h-12 w-12 text-primary-500"/>
-            <h1 className="mt-2 text-4xl md:text-5xl font-semibold tracking-tight text-white">
-                About WSU Major Explorer
-            </h1>
-            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-400 font-body">
-                An interactive tool to help students explore academic programs at Winona State University with trusted, transparent data.
-            </p>
+          <Info className="mx-auto h-12 w-12 text-primary-500" />
+          <h1 className="mt-2 text-4xl md:text-5xl font-semibold tracking-tight text-white">
+            About WSU Major Explorer
+          </h1>
+          <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-400 font-body">
+            An interactive tool to help students explore academic programs at Winona State University with trusted, transparent data.
+          </p>
         </div>
 
         <div className="mt-16 space-y-10">
           <Section title="Purpose" icon={<Target />}>
             <p>WSU Major Explorer helps prospective and current students explore academic programs at Winona State University, compare program options side-by-side, and chat with an AI advisor to make informed decisions about your academic path.</p>
+            <p><strong>Please Note:</strong> This site is currently in a very early stage of development and is actively being worked on. New features, comprehensive information, and updated data are being added regularly as we continue to improve the platform.</p>
             <p>This tool is designed to complement—not replace—official academic advising. Always confirm details with WSU advisors before making final decisions.</p>
           </Section>
 
@@ -32,26 +33,26 @@ const AboutPage: React.FC = () => {
 
           <Section title="Data Methodology" icon={<ListChecks />}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h4 className="font-semibold text-green-400">What We Do</h4>
-                    <ul className="mt-2 list-disc list-inside space-y-1 text-gray-300">
-                        <li>Exclude discontinued programs and those not accepting new students</li>
-                        <li>Clearly label aggregate values (combined totals)</li>
-                        <li>Show enrollment trends (Up/Stable/Down) only</li>
-                        <li>Use conservative career mappings only where explicit</li>
-                        <li>Distinguish pre-professional tracks from degree programs</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 className="font-semibold text-red-400">What We Don't Do</h4>
-                    <ul className="mt-2 list-disc list-inside space-y-1 text-gray-300">
-                        <li>Infer, estimate, or backfill missing data</li>
-                        <li>Create derived rankings or scores</li>
-                        <li>Assign graduation data to minors or pre-professional tracks</li>
-                        <li>Merge or redistribute data across programs</li>
-                        <li>Web scrape or use unverified external data</li>
-                    </ul>
-                </div>
+              <div>
+                <h4 className="font-semibold text-green-400">What We Do</h4>
+                <ul className="mt-2 list-disc list-inside space-y-1 text-gray-300">
+                  <li>Exclude discontinued programs and those not accepting new students</li>
+                  <li>Clearly label aggregate values (combined totals)</li>
+                  <li>Show enrollment trends (Up/Stable/Down) only</li>
+                  <li>Use conservative career mappings only where explicit</li>
+                  <li>Distinguish pre-professional tracks from degree programs</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-red-400">What We Don't Do</h4>
+                <ul className="mt-2 list-disc list-inside space-y-1 text-gray-300">
+                  <li>Infer, estimate, or backfill missing data</li>
+                  <li>Create derived rankings or scores</li>
+                  <li>Assign graduation data to minors or pre-professional tracks</li>
+                  <li>Merge or redistribute data across programs</li>
+                  <li>Web scrape or use unverified external data</li>
+                </ul>
+              </div>
             </div>
           </Section>
 
@@ -72,15 +73,24 @@ const AboutPage: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            <Section title="Contact & Feedback" icon={<ExternalLink />}>
+              <p>We are actively looking for feedback to improve this tool. If you spot an error, have a feature request, or just want to share your thoughts, please reach out.</p>
+              <div className="mt-4">
+                <a href="https://forms.gle/pVYDG87KTHPRW3u87" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition border border-gray-700 font-medium font-body">
+                  <ExternalLink size={18} /> Open Feedback Form
+                </a>
+              </div>
+            </Section>
           </div>
-          
-           <Section title="Official Resources" icon={<ExternalLink />}>
-             <div className="flex flex-wrap gap-4">
-                <a href="https://www.winona.edu/academics/" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline font-medium">WSU Academics</a>
-                <a href="https://www.winona.edu/advising/" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline font-medium">Advising Services</a>
-                <a href="https://www.winona.edu/admissions/" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline font-medium">Admissions</a>
-             </div>
-           </Section>
+
+          <Section title="Official Resources" icon={<ExternalLink />}>
+            <div className="flex flex-wrap gap-4">
+              <a href="https://www.winona.edu/academics/" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline font-medium">WSU Academics</a>
+              <a href="https://www.winona.edu/advising/" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline font-medium">Advising Services</a>
+              <a href="https://www.winona.edu/admissions/" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline font-medium">Admissions</a>
+            </div>
+          </Section>
 
         </div>
       </div>
@@ -88,24 +98,24 @@ const AboutPage: React.FC = () => {
   );
 };
 
-const Section: React.FC<{title: string, icon: React.ReactNode, children: React.ReactNode}> = ({title, icon, children}) => (
-    <div className="bg-gray-900 p-8 rounded-xl border border-gray-800">
-        <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-primary-400">{icon}</span>
-            {title}
-        </h2>
-        <div className="mt-4 text-gray-300 space-y-4 font-body">
-            {children}
-        </div>
+const Section: React.FC<{ title: string, icon: React.ReactNode, children: React.ReactNode }> = ({ title, icon, children }) => (
+  <div className="bg-gray-900 p-8 rounded-xl border border-gray-800">
+    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+      <span className="text-primary-400">{icon}</span>
+      {title}
+    </h2>
+    <div className="mt-4 text-gray-300 space-y-4 font-body">
+      {children}
     </div>
+  </div>
 );
 
-const SourceItem: React.FC<{title: string, timeframe: string, details: string}> = ({title, timeframe, details}) => (
-    <div>
-        <h4 className="font-semibold text-gray-100">{title}</h4>
-        <p className="font-body text-sm font-mono bg-gray-800 inline-block px-2 py-0.5 rounded my-1 text-gray-200">Timeframe: {timeframe}</p>
-        <p className="text-sm font-body">{details}</p>
-    </div>
+const SourceItem: React.FC<{ title: string, timeframe: string, details: string }> = ({ title, timeframe, details }) => (
+  <div>
+    <h4 className="font-semibold text-gray-100">{title}</h4>
+    <p className="font-body text-sm font-mono bg-gray-800 inline-block px-2 py-0.5 rounded my-1 text-gray-200">Timeframe: {timeframe}</p>
+    <p className="text-sm font-body">{details}</p>
+  </div>
 );
 
 export default AboutPage;
