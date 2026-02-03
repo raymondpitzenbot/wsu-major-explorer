@@ -19,7 +19,7 @@ const AboutPage: React.FC = () => {
         <div className="mt-16 space-y-10">
           <Section title="Purpose" icon={<Target />}>
             <p>WSU Major Explorer helps prospective and current students explore academic programs at Winona State University, compare program options side-by-side, and chat with an AI advisor to make informed decisions about your academic path.</p>
-            <p><strong>Please Note:</strong> This site is currently in a very early stage of development and is actively being worked on. New features, comprehensive information, and updated data are being added regularly as we continue to improve the platform.</p>
+            <p><strong>Please Note:</strong> This site is currently in a very early stage of development and is actively being worked on. New features, comprehensive information, and updated data are being added regularly as the platform continues to evolve.</p>
             <p>This tool is designed to complement—not replace—official academic advising. Always confirm details with WSU advisors before making final decisions.</p>
           </Section>
 
@@ -34,7 +34,7 @@ const AboutPage: React.FC = () => {
           <Section title="Data Methodology" icon={<ListChecks />}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h4 className="font-semibold text-green-400">What We Do</h4>
+                <h4 className="font-semibold text-green-400">Data Standards</h4>
                 <ul className="mt-2 list-disc list-inside space-y-1 text-gray-300">
                   <li>Exclude discontinued programs and those not accepting new students</li>
                   <li>Clearly label aggregate values (combined totals)</li>
@@ -44,7 +44,7 @@ const AboutPage: React.FC = () => {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold text-red-400">What We Don't Do</h4>
+                <h4 className="font-semibold text-red-400">Limitations</h4>
                 <ul className="mt-2 list-disc list-inside space-y-1 text-gray-300">
                   <li>Infer, estimate, or backfill missing data</li>
                   <li>Create derived rankings or scores</li>
@@ -75,7 +75,7 @@ const AboutPage: React.FC = () => {
             </div>
 
             <Section title="Contact & Feedback" icon={<ExternalLink />}>
-              <p>We are actively looking for feedback to improve this tool. If you spot an error, have a feature request, or just want to share your thoughts, please reach out.</p>
+              <p>Feedback is actively encouraged to help improve this tool. If you spot an error, have a feature request, or just want to share your thoughts, please reach out.</p>
               <div className="mt-4">
                 <a href="https://forms.gle/pVYDG87KTHPRW3u87" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition border border-gray-700 font-medium font-body">
                   <ExternalLink size={18} /> Open Feedback Form
