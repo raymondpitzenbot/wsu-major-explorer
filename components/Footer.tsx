@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
                             Helping students find their path at Winona State University.
                         </p>
                     </div>
-                     <div className="text-center sm:text-left">
+                    <div className="text-center sm:text-left">
                         <h3 className="font-semibold text-gray-300 tracking-wider uppercase">Official Links</h3>
                         <ul className="mt-4 space-y-2 text-sm font-body">
                             <li><a href="https://www.winona.edu/academics/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400">WSU Academics</a></li>
@@ -24,18 +24,17 @@ const Footer: React.FC = () => {
                             <li><a href="https://www.winona.edu/admissions/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400">Admissions</a></li>
                         </ul>
                     </div>
-                     <div className="text-center sm:text-left">
+                    <div className="text-center sm:text-left">
                         <h3 className="font-semibold text-gray-300 tracking-wider uppercase">Data Sources</h3>
                         <ul className="mt-4 space-y-2 text-sm font-body">
                             <li><a href="https://www.winona.edu/about/leadership/institutional-data/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400">WSU IPAR</a></li>
                             <li><a href="https://apps.deed.state.mn.us/lmi/oes/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400">Minnesota DEED</a></li>
-                            <li><Link to="/about" className="text-gray-400 hover:text-primary-400">About Our Data</Link></li>
                         </ul>
                     </div>
-                     <div className="text-center sm:text-left">
+                    <div className="text-center sm:text-left">
                         <h3 className="font-semibold text-gray-300 tracking-wider uppercase">Disclaimer</h3>
                         <p className="mt-4 text-sm text-gray-400 font-body">
-                        This tool is for informational purposes only. Always confirm program details with an official WSU academic advisor.
+                            This tool is for informational purposes only. Always confirm program details with an official WSU academic advisor.
                         </p>
                     </div>
                 </div>
