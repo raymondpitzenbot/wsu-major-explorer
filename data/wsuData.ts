@@ -43,9 +43,24 @@ export const departments: Department[] = [
     { department_id: 'pre_professional_programs_dept', department_name: 'Other - Pre-Professional Programs', college_name: 'Pre-Professional Pathways', total_enrollment_fall_2021: null },
 ];
 
-export const programsRaw: Program[] = [
+// Import scraped data
+import courseRequirements from './course_requirements.json';
+
+const programsList: Program[] = [
     { program_id: 'accounting-bs', program_name: 'Accounting', degree_type: 'BS', credential_level: 'Undergraduate', department_id: 'accounting_dept', program_credits: '71-72', total_credits: '120', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/accounting/', short_description: 'Master the principles of financial reporting, auditing, and taxation to drive key business decisions.', overview: 'This program prepares you for a career in public, corporate, or governmental accounting through a rigorous curriculum focused on financial analysis and ethical practices. Graduates are equipped for professional certifications like the CPA.', you_might_like: ['Working with numbers and data', 'Analyzing financial trends', 'Organized and detail-oriented'], not_for_you: ['Prefer purely creative freedom', 'Dislike strict regulations/rules', 'Avoid complex calculations'] },
     { program_id: 'accounting-minor', program_name: 'Accounting Minor', degree_type: 'Minor', credential_level: 'Undergraduate', department_id: 'accounting_dept', program_credits: '37', total_credits: '120', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/accounting-minor/', short_description: 'Gain a foundational understanding of accounting principles to complement any business or non-business major.', overview: 'This minor provides essential knowledge in financial and managerial accounting, giving you a competitive edge by developing your financial literacy. It is a valuable addition for students looking to understand the financial implications of decisions in any field.', you_might_like: ['Working with numbers and data', 'Analyzing financial trends', 'Organized and detail-oriented'], not_for_you: ['Prefer purely creative freedom', 'Dislike strict regulations/rules', 'Avoid complex calculations'] },
+    // ... (keep all other programs as is, but this file is huge so I should use multireplace if I can't replace all)
+    // WAIT. Replacing 800 lines is risky/expensive. 
+    // I will use a different strategy:
+    // 1. Rename the existing `export const programsRaw` to `const basePrograms`.
+    // 2. Add the import.
+    // 3. Add `export const programsRaw = basePrograms.map(...)` at the end.
+
+    // Actually, I can just use `replace_file_content` to change the start and end of the array definition.
+    // But the user's file has `export const programsRaw: Program[] = [ ... ]`.
+    // I can change that line to `const basePrograms: Program[] = [`
+    // And then append the mapping logic at the end of the file.
+
     { program_id: 'business-administration', program_name: 'Business Administration', degree_type: 'BS', credential_level: 'Undergraduate', department_id: 'business_administration_dept', program_credits: '66', total_credits: '120', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/business-administration/', short_description: 'Develop a broad understanding of core business functions including management, finance, and marketing.', overview: 'This versatile program provides a comprehensive foundation in all aspects of business operations, preparing you for leadership roles in diverse industries. You will learn to analyze business problems, develop strategic solutions, and manage organizational resources effectively.', you_might_like: ['Leading teams and projects', 'Strategic planning', 'Problem-solving'], not_for_you: ['Prefer following instructions only', 'Avoid conflict resolution', "Dislike responsibility for others' work"] },
     { program_id: 'business-administration-minor', program_name: 'Business Administration Minor', degree_type: 'Minor', credential_level: 'Undergraduate', department_id: 'business_administration_dept', program_credits: '43', total_credits: '120', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/business-administration-minor/', short_description: 'Acquire essential business knowledge to supplement your major and enhance your career prospects.', overview: 'This minor offers a solid grounding in key business areas, providing a valuable credential that signals business acumen to employers. It is designed for non-business majors who want to understand the fundamentals of management, marketing, and finance.', you_might_like: ['Leading teams and projects', 'Strategic planning', 'Problem-solving'], not_for_you: ['Prefer following instructions only', 'Avoid conflict resolution', "Dislike responsibility for others' work"] },
     { program_id: 'business-analysis-minor', program_name: 'Business Analysis Minor', degree_type: 'Minor', credential_level: 'Undergraduate', department_id: 'economics_dept', program_credits: '43-54', total_credits: '120', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/business-analysis-minor/', short_description: 'Learn to use data and analytical methods to identify business needs and determine solutions.', overview: 'This minor equips you with the skills to bridge the gap between business stakeholders and technology teams by analyzing data and processes. You will learn to model business requirements and recommend improvements to drive efficiency and innovation.', you_might_like: ['Leading teams and projects', 'Strategic planning', 'Problem-solving'], not_for_you: ['Prefer following instructions only', 'Avoid conflict resolution', "Dislike responsibility for others' work"] },
@@ -233,7 +248,74 @@ export const programsRaw: Program[] = [
     { program_id: 'chemistry-and-physical-science-teaching', program_name: 'Chemistry & Physical Science (Teaching)', degree_type: 'BT', credential_level: 'Undergraduate', department_id: 'chemistry_dept', program_credits: '103-107', total_credits: '120', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/chemistry-physical-science-teaching/', short_description: 'Gain licensure to teach both chemistry and general physical science at the secondary level.', overview: 'This program provides broad content knowledge across chemistry and physics, along with teacher education coursework. It prepares you for a versatile career as a high school science teacher.', you_might_like: ['Helping others learn and grow', 'Working with children or youth', 'Patience and adaptability'], not_for_you: ['Prefer quiet, solitary work', 'Dislike noise and activity', 'Avoid repeated explanations'] },
     { program_id: 'composite-materials-engineering', program_name: 'Composite Materials Engineering', degree_type: 'BS', credential_level: 'Undergraduate', department_id: 'composite_materials_engineering_dept', program_credits: '106', total_credits: '128', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/composite-materials-engineering/', short_description: 'Design and create the next generation of lightweight, high-strength materials in this unique engineering program.', overview: 'As one of only a few such undergraduate programs in the country, this major provides specialized, hands-on training in the design and manufacturing of composite materials. Graduates are in high demand in the aerospace, automotive, and sporting goods industries.', you_might_like: ['Understanding how things work', 'Conducting experiments', ' rigorous analysis'], not_for_you: ['Prefer subjective answers', 'Avoid math and statistics', 'Dislike precise documentation'] },
     { program_id: 'computer-information-systems', program_name: 'Computer Information Systems', degree_type: 'BS', credential_level: 'Undergraduate', department_id: 'computer_science_dept', program_credits: '41-64', total_credits: '120', location: 'Winona;Rochester', program_page_url: 'https://www.winona.edu/academics/programs/computer-information-systems/', short_description: 'Combine business acumen with technical skills to manage and support an organization\'s IT infrastructure.', overview: 'This program is a blend of computer science and business, preparing you for roles like systems analyst, network administrator, or IT manager. You will learn to apply technology to meet business needs effectively.', you_might_like: ['Solving logic puzzles', 'Technology and coding', 'Continuous learning'], not_for_you: ['Prefer strictly non-technical work', 'Avoid abstract thinking', 'Dislike troubleshooting'] },
-    { program_id: 'computer-science', program_name: 'Computer Science', degree_type: 'BS', credential_level: 'Undergraduate', department_id: 'computer_science_dept', program_credits: '68-69', total_credits: '120', location: 'Winona;Rochester', program_page_url: 'https://www.winona.edu/academics/programs/computer-science/', short_description: 'Learn to design, build, and analyze software systems and solve complex computational problems.', overview: 'Explore core topics like algorithms, data structures, and software engineering to prepare for a dynamic career in technology. This program provides a strong theoretical foundation and practical skills for developing innovative software solutions.', you_might_like: ['Solving logic puzzles', 'Technology and coding', 'Continuous learning'], not_for_you: ['Prefer strictly non-technical work', 'Avoid abstract thinking', 'Dislike troubleshooting'] },
+    {
+        program_id: 'computer-science', program_name: 'Computer Science', degree_type: 'BS', credential_level: 'Undergraduate', department_id: 'computer_science_dept', program_credits: '68-69', total_credits: '120', location: 'Winona;Rochester', program_page_url: 'https://www.winona.edu/academics/programs/computer-science/', short_description: 'Learn to design, build, and analyze software systems and solve complex computational problems.', overview: 'Explore core topics like algorithms, data structures, and software engineering to prepare for a dynamic career in technology. This program provides a strong theoretical foundation and practical skills for developing innovative software solutions.', you_might_like: ['Solving logic puzzles', 'Technology and coding', 'Continuous learning'], not_for_you: ['Prefer strictly non-technical work', 'Avoid abstract thinking', 'Dislike troubleshooting'],
+        course_structure: [
+            {
+                group_name: "Computer Science Core",
+                credits_required: "38",
+                display_type: "list",
+                items: [
+                    { type: "course", course_id: "CS 101", course_title: "Exploring Creative Computing", credits: "3 credits" },
+                    { type: "course", course_id: "CS 234", course_title: "Algorithms and Problem-Solving I", credits: "4 credits" },
+                    { type: "course", course_id: "CS 250", course_title: "Algorithms and Problem-Solving II", credits: "4 credits" },
+                    { type: "course", course_id: "CS 275", course_title: "Mathematical Foundations of Algorithms", credits: "4 credits" },
+                    { type: "course", course_id: "CS 313", course_title: "Networking and Telecommunications", credits: "4 credits" },
+                    { type: "course", course_id: "CS 341", course_title: "Data Structures", credits: "4 credits" },
+                    { type: "course", course_id: "CS 375", course_title: "Computer Systems", credits: "4 credits" },
+                    { type: "course", course_id: "CS 385", course_title: "Applied Database Management Systems", credits: "4 credits" },
+                    { type: "course", course_id: "CS 410", course_title: "Software Engineering", credits: "4 credits" },
+                    { type: "course", course_id: "STAT 210", course_title: "Statistics", credits: "3 credits" }
+                ]
+            },
+            {
+                group_name: "Required Courses",
+                credits_required: "13",
+                display_type: "list",
+                items: [
+                    { type: "course", course_id: "CS 405", course_title: "Operating Systems", credits: "3 credits" },
+                    { type: "course", course_id: "CS 415", course_title: "Principles of Programming Languages", credits: "3 credits" },
+                    { type: "course", course_id: "CS 435", course_title: "Theory of Computation", credits: "3 credits" },
+                    { type: "course", course_id: "MATH 212", course_title: "Calculus I", credits: "4 credits" }
+                ]
+            },
+            {
+                group_name: "Electives",
+                credits_required: "18",
+                display_type: "choice_credits",
+                items: [
+                    { type: "course", course_id: "CS 344", course_title: "Introduction to Web Programming", credits: "3 credits" },
+                    { type: "course", course_id: "CS 345", course_title: "Mobile Application Development", credits: "3 credits" },
+                    { type: "course", course_id: "CS 346", course_title: "Introduction to Internet of Things", credits: "3 credits" },
+                    { type: "course", course_id: "CS 366", course_title: "Topics in Emerging Computing Technologies", credits: "1-3 credits" },
+                    { type: "course", course_id: "CS 368", course_title: "Introduction to Bioinformatics", credits: "4 credits" },
+                    { type: "course", course_id: "CS 411", course_title: "Software Quality", credits: "3 credits" },
+                    { type: "course", course_id: "CS 413", course_title: "Advanced Networking and Telecommunications", credits: "3 credits" },
+                    { type: "course", course_id: "CS 420", course_title: "Computer Architecture", credits: "3 credits" },
+                    { type: "course", course_id: "CS 423", course_title: "Computer and Network Security", credits: "3 credits" },
+                    { type: "course", course_id: "CS 430", course_title: "Computer Graphics", credits: "3 credits" },
+                    { type: "course", course_id: "CS 433", course_title: "Digital Image Processing", credits: "3 credits" },
+                    { type: "course", course_id: "CS 440", course_title: "Theory of Algorithms", credits: "3 credits" },
+                    { type: "course", course_id: "CS 444", course_title: "Human Computer Interaction", credits: "3 credits" },
+                    { type: "course", course_id: "CS 445", course_title: "Artificial Intelligence", credits: "3 credits" },
+                    { type: "course", course_id: "CS 447", course_title: "Machine Learning", credits: "3 credits" },
+                    { type: "course", course_id: "CS 450", course_title: "Compilers", credits: "3 credits" },
+                    { type: "course", course_id: "CS 465", course_title: "Topics: Computing Theory", credits: "1-3 credits" },
+                    { type: "course", course_id: "CS 466", course_title: "Topics: General Computing Applications", credits: "1-3 credits" },
+                    { type: "course", course_id: "CS 467", course_title: "Topics: Information Systems Applications", credits: "1-3 credits" },
+                    { type: "course", course_id: "CS 472", course_title: "Reusable Software Architectures", credits: "3 credits" },
+                    { type: "course", course_id: "CS 476", course_title: "Distributed Systems: Concepts and Design", credits: "3 credits" },
+                    { type: "course", course_id: "CS 482", course_title: "Internet/Web Architecture and Development", credits: "3 credits" },
+                    { type: "course", course_id: "CS 485", course_title: "Database Systems Design", credits: "3 credits" },
+                    { type: "course", course_id: "CS 491", course_title: "Practicum in Computer Science", credits: "3 credits" },
+                    { type: "course", course_id: "CS 495", course_title: "Computer Science Research Seminar", credits: "3 credits" },
+                    { type: "course", course_id: "PHYS 332", course_title: "Digital Circuits", credits: "3 credits" },
+                    { type: "course", course_id: "PHYS 333", course_title: "Microprocessor Electronics", credits: "3 credits" }
+                ],
+                notes: ["Choose 18 additional elective credits."]
+            }
+        ]
+    },
     { program_id: 'computer-science-minor', program_name: 'Computer Science Minor', degree_type: 'Minor', credential_level: 'Undergraduate', department_id: 'computer_science_dept', program_credits: '26', total_credits: '120', location: 'Winona;Rochester', program_page_url: 'https://www.winona.edu/academics/programs/computer-science-minor/', short_description: 'Gain fundamental programming and problem-solving skills to enhance any major in a tech-driven world.', overview: 'This minor provides a solid introduction to computer science, including programming, data structures, and algorithms. It is a highly valuable skill set that can be applied in almost any field, from science to the arts.', you_might_like: ['Solving logic puzzles', 'Technology and coding', 'Continuous learning'], not_for_you: ['Prefer strictly non-technical work', 'Avoid abstract thinking', 'Dislike troubleshooting'] },
     { program_id: 'computer-technology-minor', program_name: 'Computer Technology Minor', degree_type: 'Minor', credential_level: 'Undergraduate', department_id: 'computer_science_dept', program_credits: '18', total_credits: '120', location: 'Winona;Rochester', program_page_url: 'https://www.winona.edu/academics/programs/computer-technology/', short_description: 'Develop practical skills in computer applications, web development, and networking.', overview: 'This minor is designed for non-majors who want to become proficient users of computer technology. It provides hands-on skills that are immediately applicable in the modern workplace.', you_might_like: ['Solving logic puzzles', 'Technology and coding', 'Continuous learning'], not_for_you: ['Prefer strictly non-technical work', 'Avoid abstract thinking', 'Dislike troubleshooting'] },
     { program_id: 'data-science', program_name: 'Data Science', degree_type: 'BS', credential_level: 'Undergraduate', department_id: 'mathematics_and_statistics_dept', program_credits: '63-65', total_credits: '120', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/data-science/', short_description: 'Learn to extract knowledge and insights from data using a combination of statistics, computer science, and domain expertise.', overview: 'This high-demand, interdisciplinary major prepares you to work with large datasets to solve complex problems. You will gain skills in machine learning, data visualization, and statistical modeling for a career as a data scientist or analyst.', you_might_like: ['Solving logic puzzles', 'Technology and coding', 'Continuous learning'], not_for_you: ['Prefer strictly non-technical work', 'Avoid abstract thinking', 'Dislike troubleshooting'] },
@@ -282,6 +364,15 @@ export const programsRaw: Program[] = [
     { program_id: 'pre-podiatry', program_name: 'Pre-Podiatry', degree_type: 'Course Sequence', credential_level: 'Non-degree', department_id: 'pre_professional_programs_dept', program_credits: 'Varies', total_credits: '120', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/pre-podiatry/', short_description: 'Complete the necessary prerequisite coursework to apply to podiatric medical colleges.', overview: 'This advising track guides you through the science courses required for admission to a Doctor of Podiatric Medicine (DPM) program. Your advisor will help you prepare for the MCAT and build a competitive application for this specialized medical field.', you_might_like: ['Learning new concepts', 'Critical thinking', 'Professional development'], not_for_you: ['Prefer routine repetitive tasks', 'Avoid intellectual challenges'] },
     { program_id: 'pre-veterinary', program_name: 'Pre-Veterinary', degree_type: 'Course Sequence', credential_level: 'Non-degree', department_id: 'pre_professional_programs_dept', program_credits: 'Varies', total_credits: '120', location: 'Winona', program_page_url: 'https://www.winona.edu/academics/programs/pre-veterinary/', short_description: 'Prepare for admission to veterinary school by completing the required science courses and gaining animal experience.', overview: 'This advising track ensures you meet the rigorous academic prerequisites for Doctor of Veterinary Medicine (DVM) programs. Your pre-health advisor will also guide you in gaining the extensive animal and veterinary experience necessary for a strong application.', you_might_like: ['Learning new concepts', 'Critical thinking', 'Professional development'], not_for_you: ['Prefer routine repetitive tasks', 'Avoid intellectual challenges'] }
 ];
+
+export const programsRaw: Program[] = programsList.map(p => {
+    // @ts-ignore
+    const structure = courseRequirements[p.program_id];
+    return {
+        ...p,
+        course_structure: structure ? structure : undefined
+    };
+});
 
 export const programEnrollments: { program_id: string, enrollment_fall_2021: number, trend: 'Up' | 'Stable' | 'Down' }[] = [
     { program_id: 'academic-and-behavioral-strategist-bt', enrollment_fall_2021: 34, trend: 'Down' },

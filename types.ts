@@ -24,7 +24,7 @@ export interface Program {
     not_for_you?: string[];
     related_job_titles?: string[];
     recommended_minors?: { name: string; id: string }[];
-    
+
     // Joined data
     department?: Department;
     expanded_degree_type?: string;
@@ -34,6 +34,38 @@ export interface Program {
     career_outcomes?: CareerOutcome[];
     clubs?: Club[];
     data_coverage_score?: number;
+    course_structure?: CourseGroup[];
+}
+
+export interface Course {
+    course_id: string; // e.g. "CS 101"
+    course_title: string; // e.g. "Exploring Creative Computing"
+    credits: string; // e.g. "3"
+    description?: string;
+}
+
+
+export interface CourseGroup {
+    group_name: string; // e.g. "Core Requirements", "Electives"
+    credits_required?: string;
+    // Logic for this group
+    display_type?: 'list' | 'choice_credits' | 'choice_count';
+    items: (Course | CourseText)[]; // Changed from just courses to allow text items (e.g. "OR")
+    subgroups?: CourseGroup[];
+    notes?: string[];
+}
+
+export interface CourseText {
+    type: 'text';
+    content: string; // e.g. "OR", "Choose one of the following:"
+}
+
+export interface Course {
+    type: 'course';
+    course_id: string; // e.g. "CS 101"
+    course_title: string; // e.g. "Exploring Creative Computing"
+    credits: string; // e.g. "3"
+    description?: string;
 }
 
 export interface CareerOutcome {

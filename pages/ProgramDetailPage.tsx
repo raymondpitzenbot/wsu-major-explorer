@@ -5,6 +5,7 @@ import { useData } from '../contexts/DataContext';
 import { ArrowLeft, ExternalLink, Scale, CheckCircle, XCircle, Briefcase, Handshake, Building, MapPin, DollarSign, BarChart2, Clock, Users, BookOpen, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { useCompare } from '../contexts/CompareContext';
 import { CareerOutcome } from '../types';
+import CourseRequirementWidget from '../components/CourseRequirementWidget';
 
 const ProgramDetailPage: React.FC = () => {
     const { programId } = useParams<{ programId: string }>();
@@ -61,6 +62,7 @@ const ProgramDetailPage: React.FC = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-8">
+
                         {program.you_might_like && program.you_might_like.length > 0 && (
                             <Widget title="Is This Major Right For You?">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -79,6 +81,14 @@ const ProgramDetailPage: React.FC = () => {
                                 </div>
                             </Widget>
                         )}
+
+                        {/* Course Requirements Widget - ADDED */}
+                        {program.course_structure && (
+                            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+                                <CourseRequirementWidget courseStructure={program.course_structure} />
+                            </div>
+                        )}
+
 
                         <Widget title="Career Outlook" icon={<Briefcase />}>
                             {program.career_outcomes && program.career_outcomes.length > 0 ? (
@@ -162,7 +172,7 @@ const ProgramDetailPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
