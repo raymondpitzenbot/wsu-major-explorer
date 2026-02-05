@@ -104,35 +104,6 @@ const RecursiveSection: React.FC<{ group: CourseGroup; depth: number }> = ({ gro
     const creditsFromHeader = extractCredits(group.group_name);
     let displayCredits = group.credits_required || creditsFromHeader;
 
-    // Auto-detect choice: purely linguistic OR based on credit math
-    let isChoice = group.display_type?.includes('choice') ||
-        group.group_name.toLowerCase().includes('choose') ||
-        group.group_name.toLowerCase().includes('select') ||
-        group.group_name.toLowerCase().includes('option');
-
-    // If not explicit, check implicit math: Sum of item credits > Required Credits
-    if (!isChoice && displayCredits) {
-        let totalMaxCredits = 0;
-        group.items.forEach(i => {
-            if (i.type === 'course' && i.credits) {
-                // Parse "3" or "3-4". Take max.
-                const match = i.credits.match(/(\d+)/g);
-                if (match) {
-                    const vals = match.map(Number);
-                    totalMaxCredits += Math.max(...vals);
-                }
-            }
-        });
-
-        // If we have significantly more credits available than required (e.g. 12 avail, 3 required), it's a choice list
-        // Use a small buffer (item count > 1) to avoid 3 vs 3.
-        const reqCr = parseInt(displayCredits.toString().replace(/\D/g, ''));
-        if (!isNaN(reqCr) && totalMaxCredits > reqCr && group.items.filter(i => i.type === 'course').length > 1) {
-            isChoice = true;
-        }
-    }
-
-
     return (
         <div className={`flex flex-col ${depth > 0 ? 'ml-3 pl-3 border-l border-gray-800/30' : ''}`}>
             {cleanedName && (
@@ -140,7 +111,7 @@ const RecursiveSection: React.FC<{ group: CourseGroup; depth: number }> = ({ gro
                     <span className="flex-grow mr-2">{cleanedName}</span>
                     {displayCredits && (
                         <span className="shrink-0 text-[10px] font-bold px-2 py-1 border bg-amber-900/10 text-amber-500/80 border-amber-900/20">
-                            {isChoice ? `CHOOSE ${displayCredits} CR` : `${displayCredits} CR`}
+                            {depth > 0 ? `CHOOSE ${displayCredits} CR` : `${displayCredits} CR`}
                         </span>
                     )}
                 </div>
@@ -159,7 +130,6 @@ const RecursiveSection: React.FC<{ group: CourseGroup; depth: number }> = ({ gro
             <div className="space-y-1 mb-2">
                 {group.items.map((item, idx) => (
                     <React.Fragment key={idx}>
-                        {/* Optional logical separation for choice lists if needed, but keeping it simple per request */}
                         <CourseItem item={item} />
                     </React.Fragment>
                 ))}
