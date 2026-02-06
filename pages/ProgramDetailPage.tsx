@@ -167,7 +167,7 @@ const ProgramDetailPage: React.FC = () => {
                             <Widget title="Is This Major Right For You?">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div>
-                                        <h3 className="text-sm font-bold mb-4 flex items-center gap-2 text-emerald-400 uppercase tracking-wider"><CheckCircle size={18} /> Great fit if you...</h3>
+                                        <h3 className="text-sm font-bold mb-4 flex items-center gap-2 text-emerald-400 uppercase tracking-wider"><CheckCircle size={18} /> Signs this is a good fit</h3>
                                         <ul className="space-y-3 font-body">
                                             {program.you_might_like?.map(item => (
                                                 <li key={item} className="flex items-start gap-2 text-gray-300 text-sm">
@@ -178,7 +178,7 @@ const ProgramDetailPage: React.FC = () => {
                                         </ul>
                                     </div>
                                     <div>
-                                        <h3 className="text-sm font-bold mb-4 flex items-center gap-2 text-rose-400 uppercase tracking-wider"><XCircle size={18} /> May not be ideal if you...</h3>
+                                        <h3 className="text-sm font-bold mb-4 flex items-center gap-2 text-rose-400 uppercase tracking-wider"><XCircle size={18} /> Challenges to Consider</h3>
                                         <ul className="space-y-3 font-body">
                                             {program.not_for_you?.map(item => (
                                                 <li key={item} className="flex items-start gap-2 text-gray-300 text-sm">
