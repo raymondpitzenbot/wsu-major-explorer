@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { DataProvider } from './contexts/DataContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { CompareProvider } from './contexts/CompareContext';
@@ -16,27 +16,31 @@ import ScrollToTop from './components/ScrollToTop';
 
 
 
+import { HelmetProvider } from 'react-helmet-async';
+
 const App: React.FC = () => {
     return (
-        <ThemeProvider>
-            <DataProvider>
-                <CompareProvider>
-                    <HashRouter>
-                        <ScrollToTop />
-                        <Routes>
-                            <Route path="/" element={<Layout />}>
-                                <Route index element={<LandingPage />} />
-                                <Route path="explore" element={<ExplorePage />} />
-                                <Route path="program/:programId" element={<ProgramDetailPage />} />
-                                <Route path="compare" element={<ComparePage />} />
-                                <Route path="advisor" element={<AdvisorPage />} />
-                                <Route path="about" element={<AboutPage />} />
-                            </Route>
-                        </Routes>
-                    </HashRouter>
-                </CompareProvider>
-            </DataProvider>
-        </ThemeProvider>
+        <HelmetProvider>
+            <ThemeProvider>
+                <DataProvider>
+                    <CompareProvider>
+                        <BrowserRouter>
+                            <ScrollToTop />
+                            <Routes>
+                                <Route path="/" element={<Layout />}>
+                                    <Route index element={<LandingPage />} />
+                                    <Route path="explore" element={<ExplorePage />} />
+                                    <Route path="program/:programId" element={<ProgramDetailPage />} />
+                                    <Route path="compare" element={<ComparePage />} />
+                                    <Route path="advisor" element={<AdvisorPage />} />
+                                    <Route path="about" element={<AboutPage />} />
+                                </Route>
+                            </Routes>
+                        </BrowserRouter>
+                    </CompareProvider>
+                </DataProvider>
+            </ThemeProvider>
+        </HelmetProvider>
     );
 };
 

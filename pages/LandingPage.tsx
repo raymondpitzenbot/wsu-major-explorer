@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Search, MessageSquare, Scale, ArrowRight } from 'lucide-react';
 import { interestMappings } from '../data/wsuData';
@@ -90,9 +91,7 @@ const LandingPage: React.FC = () => {
         return () => clearInterval(interval);
     }, [promptBubbles]);
 
-    useEffect(() => {
-        document.title = 'WSU Major Explorer | Winona State University';
-    }, []);
+
 
     const textShadowStyle = { textShadow: '0 2px 10px rgba(0,0,0,0.5)' };
     const totalPrograms = programs.length || '200+';
@@ -100,6 +99,11 @@ const LandingPage: React.FC = () => {
 
     return (
         <>
+            <Helmet>
+                <title>WSU Major Explorer | Winona State Degrees & Programs</title>
+                <meta name="description" content="Explore details on 200+ Winona State University majors, minors, and degrees. Compare programs, view requirements, and find your perfect fit." />
+                <link rel="canonical" href="https://wsu-major-explorer.vercel.app/" />
+            </Helmet>
             <DynamicBackground className="relative isolate">
                 <div className="min-h-[calc(80vh)] flex items-center justify-center spotlight relative z-10">
                     <div className="text-center px-6 lg:px-8">
@@ -125,7 +129,7 @@ const LandingPage: React.FC = () => {
                                 </div>
                             </div>
                             <p className="mt-8 text-lg leading-8 text-white font-body max-w-2xl mx-auto" style={textShadowStyle}>
-                                All the information students search for — brought together to support one clear decision.
+                                All the information students search for — brought together to support one clear path.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link

@@ -62,7 +62,7 @@ function parseCatalogPage(html) {
         else if (strong.length) { title = strong.text().trim(); level = 3; } // Flattened from 5
 
         // Ignore headers that look like course codes (e.g. "MATH 110") or are excluded
-        if (!title || /Legend|Graduate School Recommendations/i.test(title) || /^[A-Z]{2,4}\s+\d{3}/.test(title)) return;
+        if (!title || /Legend|Graduate School Recommendations/i.test(title) || /^[A-Z]{2,4}\s+\d{3,4}/.test(title)) return;
 
         // Parse items (courses or text)
         const items = [];
@@ -80,13 +80,13 @@ function parseCatalogPage(html) {
                 // Better Course Detection on the CLEANED text
                 let isCourse = liEl.hasClass('acalog-course') ||
                     liEl.find('.acalog-course').length > 0 ||
-                    /^([A-Z]{2,4}\s+\d{3}[A-Z]?)/.test(cleanedText);
+                    /^([A-Z]{2,4}\s+\d{3,4}[A-Z]?)/.test(cleanedText);
 
                 let codeMatch = null;
                 let creditsMatch = null;
 
                 if (isCourse) {
-                    codeMatch = cleanedText.match(/^([A-Z]{2,4}\s+\d{3}[A-Z]?)/);
+                    codeMatch = cleanedText.match(/^([A-Z]{2,4}\s+\d{3,4}[A-Z]?)/);
                     creditsMatch = cleanedText.match(/\(([^)]+credits?)\)/i) ||
                         cleanedText.match(/(\d+(-\d+)?\s+credits?)/i) ||
                         cleanedText.match(/(\d+(-\d+)?\s+cr\.)/i);
@@ -135,7 +135,7 @@ function parseCatalogPage(html) {
             // This captures "6 credits of..." style requirements
             groupRaw.find('p').each((j, p) => {
                 const pText = $(p).text().trim();
-                if (pText && pText !== title && !/^[A-Z]{2,4}\s+\d{3}/.test(pText)) {
+                if (pText && pText !== title && !/^[A-Z]{2,4}\s+\d{3,4}/.test(pText)) {
                     // Check if it's not just a repeat of the title
                     items.push({ type: 'text', content: pText });
                 }

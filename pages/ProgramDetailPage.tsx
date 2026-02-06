@@ -1,5 +1,6 @@
 
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { useData } from '../contexts/DataContext';
 import { ArrowLeft, ExternalLink, Scale, CheckCircle, XCircle, Briefcase, Handshake, Building, MapPin, BookOpen, TrendingUp, TrendingDown, Minus, Users } from 'lucide-react';
@@ -74,12 +75,23 @@ const ProgramDetailPage: React.FC = () => {
 
     const program = getProgramById(programId);
 
-    // SEO Updates
-    useEffect(() => {
-        if (program) {
-            document.title = `${program.program_name} | WSU Major Explorer`;
-        }
-    }, [program]);
+    // SEO Data
+    const siteUrl = "https://wsu-major-explorer.vercel.app";
+    const canonicalUrl = program ? `${siteUrl}/program/${program.program_id}` : siteUrl;
+
+    const jsonLd = program ? {
+        "@context": "https://schema.org",
+        "@type": "EducationalOccupationalProgram",
+        "name": program.program_name,
+        "description": program.overview,
+        "educationalCredentialAwarded": program.degree_type,
+        "provider": {
+            "@type": "CollegeOrUniversity",
+            "name": "Winona State University",
+            "url": "https://www.winona.edu"
+        },
+        "url": canonicalUrl
+    } : null;
 
     if (!program) {
         return <div className="text-center py-20 font-body text-white">Program not found.</div>;
@@ -100,6 +112,14 @@ const ProgramDetailPage: React.FC = () => {
 
     return (
         <div className="bg-gray-950 min-h-screen">
+            <Helmet>
+                <title>{`${program.program_name} | WSU Major Explorer`}</title>
+                <meta name="description" content={program.overview ? program.overview.substring(0, 160) + '...' : `Explore the ${program.program_name} program at Winona State University.`} />
+                <link rel="canonical" href={canonicalUrl} />
+                <script type="application/ld+json">
+                    {JSON.stringify(jsonLd)}
+                </script>
+            </Helmet>
             <div className="bg-gray-900/50 border-b border-gray-800 pt-10">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative pb-8">
                     <Link to="/explore" className="flex items-center gap-2 text-xs text-primary-400 hover:text-primary-300 mb-6 font-bold font-body uppercase tracking-widest">

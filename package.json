@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/generate_sitemap.cjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "openai": "^4.104.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.13.0",
     "serve-static": "^2.2.1"
   },

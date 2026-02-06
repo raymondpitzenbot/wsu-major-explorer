@@ -55,7 +55,7 @@ const AboutPage: React.FC = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">Trusted Data Sources</h2>
             <p className="text-gray-400 max-w-2xl mx-auto font-body">
-              Our platform is built on official, verifiable data. We believe in complete transparency about where our information comes from.
+              This platform is built with official, verifiable data. Complete transparency about where information comes from is essential.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -96,27 +96,27 @@ const AboutPage: React.FC = () => {
             <div>
               <h2 className="text-3xl font-bold text-white mb-6">Our Methodology</h2>
               <p className="text-gray-400 text-lg mb-8 font-body leading-relaxed">
-                We believe in showing exactly what goes into our data so you can trust what you see. Our approach prioritizes clarity and honesty over comprehensiveness.
+                You deserve to see exactly what goes into the data so you can trust what you see. This site prioritizes clarity and honesty over comprehensiveness.
               </p>
 
               <div className="space-y-6">
                 <DetailBlock
-                  title="Our Approach"
+                  title="Methodology Approach"
                   items={[
-                    "Unify data from multiple isolated sources (Catalog, IPAR, State Data)",
-                    "Reformat complex degree requirements for readability",
-                    "Provide 'fit' traits to help students discover programs",
-                    "Link directly to official sources for verification"
+                    "Unifies data from multiple isolated sources (Catalog, IPAR, State Data)",
+                    "Reformats complex degree requirements for readability",
+                    "Provides 'fit' traits to help students discover programs",
+                    "Links directly to official sources for verification"
                   ]}
                   colorClass="text-emerald-400"
                 />
                 <DetailBlock
-                  title="What We Cannot Do"
+                  title="Limitations"
                   items={[
-                    "Replace official academic advising or degree audits",
-                    "Reflect real-time catalog changes (data is a snapshot)",
-                    "Rank or score programs subjectively",
-                    "Track individual student progress or credits"
+                    "Does not replace official academic advising or degree audits",
+                    "Does not reflect real-time catalog changes (data is a snapshot)",
+                    "Does not rank or score programs subjectively",
+                    "Does not track individual student progress or credits"
                   ]}
                   colorClass="text-rose-400"
                 />
@@ -130,7 +130,7 @@ const AboutPage: React.FC = () => {
                   <div className="flex items-start gap-4 mb-6">
                     <AlertTriangle className="text-amber-500 flex-shrink-0" size={24} />
                     <div>
-                      <h3 className="text-xl font-bold text-white">Important Disclaimer</h3>
+                      <h3 className="text-xl font-bold text-white">Disclaimer</h3>
                       <p className="text-gray-400 mt-2 font-body text-sm leading-relaxed">
                         This tool is for informational purposes only. It is not an official WSU resource and should not be used as the sole basis for academic decisions.
                       </p>

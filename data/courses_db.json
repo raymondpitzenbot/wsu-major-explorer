@@ -1,4 +1,180 @@
 {
+  "CS 101": {
+    "title": "Exploring Creative Computing",
+    "credits": "3 credits"
+  },
+  "CS 234": {
+    "title": "Algorithms and Problem-Solving I",
+    "credits": "4 credits"
+  },
+  "CS 250": {
+    "title": "Algorithms and Problem-Solving II",
+    "credits": "4 credits"
+  },
+  "CS 275": {
+    "title": "Mathematical Foundations of Algorithms",
+    "credits": "4 credits"
+  },
+  "STAT 210": {
+    "title": "Statistics",
+    "credits": "3 credits"
+  },
+  "COMP 1150": {
+    "title": "",
+    "credits": "?"
+  },
+  "COMP 2243": {
+    "title": "",
+    "credits": "?"
+  },
+  "COMP 2247": {
+    "title": "",
+    "credits": "?"
+  },
+  "MATH 2218": {
+    "title": "",
+    "credits": "?"
+  },
+  "MATH 2350": {
+    "title": "",
+    "credits": "?"
+  },
+  "BIOL 242": {
+    "title": "Organismal Diversity   OR RCTC BIOL 1230",
+    "credits": "4 credits"
+  },
+  "CHEM 213": {
+    "title": "Principles of Chemistry II   OR RCTC CHEM 1128",
+    "credits": "4 credits"
+  },
+  "CS 341": {
+    "title": "Data Structures",
+    "credits": "4 credits"
+  },
+  "CS 344": {
+    "title": "Introduction to Web Programming",
+    "credits": "3 credits"
+  },
+  "CS 368": {
+    "title": "Introduction to Bioinformatics",
+    "credits": "4 credits"
+  },
+  "CS 375": {
+    "title": "Computer Systems",
+    "credits": "4 credits"
+  },
+  "CS 385": {
+    "title": "Applied Database Management Systems",
+    "credits": "4 credits"
+  },
+  "CS 410": {
+    "title": "Software Engineering",
+    "credits": "4 credits"
+  },
+  "CS 444": {
+    "title": "Human Computer Interaction",
+    "credits": "3 credits"
+  },
+  "CS 485": {
+    "title": "Database Systems Design",
+    "credits": "3 credits"
+  },
+  "CS 345": {
+    "title": "Mobile Application Development",
+    "credits": "3 credits"
+  },
+  "CS 346": {
+    "title": "Introduction to Internet of Things",
+    "credits": "3 credits"
+  },
+  "CS 366": {
+    "title": "Topics in Emerging Computing Technologies",
+    "credits": "1-3 credits"
+  },
+  "CS 405": {
+    "title": "Operating Systems",
+    "credits": "3 credits"
+  },
+  "CS 413": {
+    "title": "Advanced Networking and Telecommunications",
+    "credits": "3 credits"
+  },
+  "CS 415": {
+    "title": "Principles of Programming Languages",
+    "credits": "3 credits"
+  },
+  "CS 420": {
+    "title": "Computer Architecture",
+    "credits": "3 credits"
+  },
+  "CS 423": {
+    "title": "Computer and Network Security",
+    "credits": "3 credits"
+  },
+  "CS 430": {
+    "title": "Computer Graphics",
+    "credits": "3 credits"
+  },
+  "CS 433": {
+    "title": "Digital Image Processing",
+    "credits": "3 credits"
+  },
+  "CS 435": {
+    "title": "Theory of Computation",
+    "credits": "3 credits"
+  },
+  "CS 440": {
+    "title": "Theory of Algorithms",
+    "credits": "3 credits"
+  },
+  "CS 445": {
+    "title": "Artificial Intelligence",
+    "credits": "3 credits"
+  },
+  "CS 450": {
+    "title": "Compilers",
+    "credits": "3 credits"
+  },
+  "CS 465": {
+    "title": "Topics: Computing Theory",
+    "credits": "1-3 credits"
+  },
+  "CS 466": {
+    "title": "Topics: General Computing Applications",
+    "credits": "1-3 credits"
+  },
+  "CS 467": {
+    "title": "Topics: Information Systems Applications",
+    "credits": "1-3 credits"
+  },
+  "CS 472": {
+    "title": "Reusable Software Architectures",
+    "credits": "3 credits"
+  },
+  "CS 476": {
+    "title": "Distributed Systems: Concepts and Design",
+    "credits": "3 credits"
+  },
+  "CS 482": {
+    "title": "Internet/Web Architecture and Development",
+    "credits": "3 credits"
+  },
+  "CS 491": {
+    "title": "Practicum in Computer Science   (only 3 credits applied to major)",
+    "credits": "3 or 6 credits"
+  },
+  "CS 495": {
+    "title": "Computer Science Research Seminar",
+    "credits": "3 credits"
+  },
+  "PHYS 332": {
+    "title": "Digital Circuits",
+    "credits": "3 credits"
+  },
+  "PHYS 333": {
+    "title": "Microprocessor Electronics",
+    "credits": "3 credits"
+  },
   "ACCT 211": {
     "title": "Financial Accounting Principles",
     "credits": "3 credits"
@@ -57,10 +233,6 @@
   },
   "STAT 110": {
     "title": "Fundamentals of Statistics",
-    "credits": "3 credits"
-  },
-  "STAT 210": {
-    "title": "Statistics",
     "credits": "3 credits"
   },
   "BUSA 291": {
@@ -127,10 +299,6 @@
     "title": "Microcomputers in Business",
     "credits": "3 credits"
   },
-  "MIS 300": {
-    "title": "/400-level course",
-    "credits": "?"
-  },
   "MGMT 317": {
     "title": "Management of Human Resources",
     "credits": "3 credits"
@@ -180,7 +348,7 @@
     "credits": "3 credits"
   },
   "BUSA 351": {
-    "title": "��Employment Law",
+    "title": "Employment Law",
     "credits": "3 credits"
   },
   "BUSA 361": {
@@ -567,10 +735,6 @@
     "title": "Internship Problem   (dept. approval required)",
     "credits": "3 credits"
   },
-  "CS 234": {
-    "title": "Algorithms and Problem-Solving I",
-    "credits": "4 credits"
-  },
   "MIS 452": {
     "title": "Management of Telecommunication Systems",
     "credits": "3 credits"
@@ -578,10 +742,6 @@
   "MIS 482": {
     "title": "Management of Information Technology",
     "credits": "3 credits"
-  },
-  "CS 250": {
-    "title": "Algorithms and Problem-Solving II",
-    "credits": "4 credits"
   },
   "DSCI 310": {
     "title": "Data Summary and Visualization",
@@ -1991,10 +2151,6 @@
     "title": "Rhetoric, Culture, and Power: Analysis of Public Communication",
     "credits": "3 credits"
   },
-  "CMST 291": {
-    "title": ", CMST 292 , &  CMST 451  may be repeated for credit with different topics.",
-    "credits": "?"
-  },
   "CMST 195": {
     "title": "Nonverbal Communication: Communicating without Words",
     "credits": "3 credits"
@@ -2009,6 +2165,10 @@
   },
   "CMST 290": {
     "title": "Disability Culture, Communication, and Advocacy",
+    "credits": "3 credits"
+  },
+  "CMST 291": {
+    "title": "Topics in Multicultural Communication",
     "credits": "3 credits"
   },
   "CMST 292": {
@@ -3079,150 +3239,6 @@
     "title": "Philosophy of Religion",
     "credits": "3 credits"
   },
-  "ART 243": {
-    "title": "Typography and Information Design",
-    "credits": "3 credits"
-  },
-  "ART 260": {
-    "title": "Visual and Layout Design",
-    "credits": "3 credits"
-  },
-  "ART 265": {
-    "title": "Tactile and Environmental Design",
-    "credits": "3 credits"
-  },
-  "ART 360": {
-    "title": "New Media and Technology Design",
-    "credits": "3 credits"
-  },
-  "ART 365": {
-    "title": "Campaign and Systems Design",
-    "credits": "3 credits"
-  },
-  "ART 375": {
-    "title": "Advanced Design Project   (Senior Show Project)",
-    "credits": "3 credits"
-  },
-  "ART 399": {
-    "title": "Internship   (Design Apprenticeship)",
-    "credits": "1-3 credits"
-  },
-  "ART 299": {
-    "title": "Special Topics in Art and Design",
-    "credits": "1-3 credits"
-  },
-  "BIOL 322": {
-    "title": "Human Anatomy",
-    "credits": "4 credits"
-  },
-  "CHEM 107": {
-    "title": "Chemistry in Our World with Lab",
-    "credits": "4 credits"
-  },
-  "CHEM 190": {
-    "title": "Forensic Chemistry",
-    "credits": "4 credits"
-  },
-  "CHEM 212": {
-    "title": "Principles of Chemistry I",
-    "credits": "4 credits"
-  },
-  "CHEM 213": {
-    "title": "Principles of Chemistry II",
-    "credits": "4 credits"
-  },
-  "CHEM 320": {
-    "title": "Environmental Chemistry",
-    "credits": "4 credits"
-  },
-  "ENG 120": {
-    "title": "Introduction to Literature",
-    "credits": "3 credits"
-  },
-  "ENG 223": {
-    "title": "Classical Mythology",
-    "credits": "3 credits"
-  },
-  "PHYS 115": {
-    "title": "Conceptual Physics",
-    "credits": "4 credits"
-  },
-  "PHYS 201": {
-    "title": "General Physics I",
-    "credits": "4 credits"
-  },
-  "PHYS 202": {
-    "title": "General Physics II",
-    "credits": "4 credits"
-  },
-  "PHYS 221": {
-    "title": "University Physics I",
-    "credits": "4 credits"
-  },
-  "PHYS 222": {
-    "title": "University Physics II",
-    "credits": "4 credits"
-  },
-  "CS 216": {
-    "title": "Web Technology II",
-    "credits": "3 credits"
-  },
-  "CS 344": {
-    "title": "Introduction to Web Programming",
-    "credits": "3 credits"
-  },
-  "CS 101": {
-    "title": "Exploring Creative Computing",
-    "credits": "3 credits"
-  },
-  "ECON 401": {
-    "title": "Entrepreneurship and the American Economy",
-    "credits": "3 credits"
-  },
-  "BIOL 312": {
-    "title": "General Ecology",
-    "credits": "3 credits"
-  },
-  "BIOL 351": {
-    "title": "Agroecology",
-    "credits": "3 credits"
-  },
-  "BIOL 405": {
-    "title": "Fishery Biology",
-    "credits": "3 credits"
-  },
-  "BIOL 424": {
-    "title": "Biogeography",
-    "credits": "3 credits"
-  },
-  "ENG 230": {
-    "title": "Literature and the Environment",
-    "credits": "3 credits"
-  },
-  "POLS 340": {
-    "title": "Environmental Policy",
-    "credits": "3 credits"
-  },
-  "SUST 301": {
-    "title": "Energy and Sustainable Living",
-    "credits": "3 credits"
-  },
-  "SUST 420": {
-    "title": "Sustainability and Environmental Citizenship",
-    "credits": "3 credits"
-  },
-  "SOC 216": {
-    "title": "Social Problems",
-    "credits": "3 credits"
-  },
-  "SOC 377": {
-    "title": "Social Theory",
-    "credits": "3 credits"
-  },
-  "SOC 412": {
-    "title": "Sociology of Gender and Sexuality",
-    "credits": "3 credits"
-  },
   "MUS 001": {
     "title": "Concert Attendance   (required 8x or each semester enrolled)",
     "credits": "0 credits"
@@ -3475,6 +3491,10 @@
     "title": "Independent Studies in Music   (3 credits required)",
     "credits": "1-6 credits"
   },
+  "CHEM 190": {
+    "title": "Forensic Chemistry",
+    "credits": "4 credits"
+  },
   "CJS 404": {
     "title": "Law Enforcement Investigation and Communication",
     "credits": "3 credits"
@@ -3525,6 +3545,10 @@
   },
   "POLS 228": {
     "title": "Public Service",
+    "credits": "3 credits"
+  },
+  "POLS 340": {
+    "title": "Environmental Policy",
     "credits": "3 credits"
   },
   "POLS 341": {
@@ -3661,6 +3685,18 @@
   },
   "SOC 205": {
     "title": "Social Interaction",
+    "credits": "3 credits"
+  },
+  "SOC 216": {
+    "title": "Social Problems",
+    "credits": "3 credits"
+  },
+  "SOC 377": {
+    "title": "Social Theory",
+    "credits": "3 credits"
+  },
+  "SOC 412": {
+    "title": "Sociology of Gender and Sexuality",
     "credits": "3 credits"
   },
   "SOC 431": {
@@ -4015,20 +4051,20 @@
     "title": "Pathophysiology for the Health Professions",
     "credits": "3 credits"
   },
-  "HERS 560": {
-    "title": "may count as HERS 460 for students accepted into MSAT and PAMS programs.",
-    "credits": "?"
-  },
-  "HERS 568": {
-    "title": "may count as HERS 468 for students accepted into the MSAT program.",
-    "credits": "?"
-  },
   "BIOL 212": {
     "title": "Anatomy and Physiology II",
     "credits": "4 credits"
   },
   "BIOL 241": {
     "title": "Basics of Life",
+    "credits": "4 credits"
+  },
+  "CHEM 212": {
+    "title": "Principles of Chemistry I",
+    "credits": "4 credits"
+  },
+  "PHYS 201": {
+    "title": "General Physics I",
     "credits": "4 credits"
   },
   "BIOL 171": {
@@ -4057,6 +4093,14 @@
   },
   "HERS 572": {
     "title": "Clinical Examination and Diagnosis II",
+    "credits": "3 credits"
+  },
+  "HERS 560": {
+    "title": "Nutrition for the Physically Active   *",
+    "credits": "3 credits"
+  },
+  "HERS 568": {
+    "title": "Pathophysiology for the Health Professions",
     "credits": "3 credits"
   },
   "HERS 573": {
@@ -4627,6 +4671,10 @@
     "title": "Seminar/Workshop in Nursing",
     "credits": "1-3 credits"
   },
+  "BIOL 322": {
+    "title": "Human Anatomy   AND",
+    "credits": "4 credits"
+  },
   "BIOL 323": {
     "title": "General Physiology",
     "credits": "4 credits"
@@ -4746,6 +4794,10 @@
   "BIOL 116": {
     "title": "Human Biology Laboratory",
     "credits": "1 credit"
+  },
+  "CHEM 107": {
+    "title": "Chemistry in Our World with Lab",
+    "credits": "4 credits"
   },
   "HERS 312": {
     "title": "School & Community Health",
@@ -5003,13 +5055,17 @@
     "title": "Wound, Ostomy, Continence, Foot and Nail Care Clinical   4 credits required.",
     "credits": "1-4 variable credits"
   },
-  "BIOL 242": {
-    "title": "Organismal Diversity",
-    "credits": "4 credits"
+  "BIOL 312": {
+    "title": "General Ecology",
+    "credits": "3 credits"
   },
   "BIOL 499": {
     "title": "Capstone Project   (3 credits required)",
     "credits": "1-3 credits"
+  },
+  "PHYS 202": {
+    "title": "General Physics II",
+    "credits": "4 credits"
   },
   "BIOL 303": {
     "title": "Biology of Algae and Fungi",
@@ -5043,6 +5099,10 @@
     "title": "Plant Taxonomy",
     "credits": "4 credits"
   },
+  "BIOL 351": {
+    "title": "Agroecology",
+    "credits": "3 credits"
+  },
   "BIOL 360": {
     "title": "Entomology",
     "credits": "4 credits"
@@ -5067,6 +5127,10 @@
     "title": "Ichthyology",
     "credits": "3 credits"
   },
+  "BIOL 405": {
+    "title": "Fishery Biology",
+    "credits": "3 credits"
+  },
   "BIOL 410": {
     "title": "Membrane Biology",
     "credits": "4 credits"
@@ -5082,6 +5146,10 @@
   "BIOL 420": {
     "title": "Limnology",
     "credits": "4 credits"
+  },
+  "BIOL 424": {
+    "title": "Biogeography",
+    "credits": "3 credits"
   },
   "BIOL 425": {
     "title": "Animal Behavior",
@@ -5143,150 +5211,6 @@
     "title": "Molecular Basis of Disease",
     "credits": "2 credits"
   },
-  "CS 275": {
-    "title": "Mathematical Foundations of Algorithms",
-    "credits": "4 credits"
-  },
-  "CS 341": {
-    "title": "Data Structures",
-    "credits": "4 credits"
-  },
-  "CS 375": {
-    "title": "Computer Systems",
-    "credits": "4 credits"
-  },
-  "CS 385": {
-    "title": "Applied Database Management Systems",
-    "credits": "4 credits"
-  },
-  "CS 410": {
-    "title": "Software Engineering",
-    "credits": "4 credits"
-  },
-  "CS 444": {
-    "title": "Human Computer Interaction",
-    "credits": "3 credits"
-  },
-  "CS 485": {
-    "title": "Database Systems Design",
-    "credits": "3 credits"
-  },
-  "CS 368": {
-    "title": "Introduction to Bioinformatics",
-    "credits": "4 credits"
-  },
-  "CS 345": {
-    "title": "Mobile Application Development",
-    "credits": "3 credits"
-  },
-  "CS 346": {
-    "title": "Introduction to Internet of Things",
-    "credits": "3 credits"
-  },
-  "CS 366": {
-    "title": "Topics in Emerging Computing Technologies",
-    "credits": "1-3 credits"
-  },
-  "CS 405": {
-    "title": "Operating Systems",
-    "credits": "3 credits"
-  },
-  "CS 413": {
-    "title": "Advanced Networking and Telecommunications",
-    "credits": "3 credits"
-  },
-  "CS 415": {
-    "title": "Principles of Programming Languages",
-    "credits": "3 credits"
-  },
-  "CS 420": {
-    "title": "Computer Architecture",
-    "credits": "3 credits"
-  },
-  "CS 423": {
-    "title": "Computer and Network Security",
-    "credits": "3 credits"
-  },
-  "CS 430": {
-    "title": "Computer Graphics",
-    "credits": "3 credits"
-  },
-  "CS 433": {
-    "title": "Digital Image Processing",
-    "credits": "3 credits"
-  },
-  "CS 435": {
-    "title": "Theory of Computation",
-    "credits": "3 credits"
-  },
-  "CS 440": {
-    "title": "Theory of Algorithms",
-    "credits": "3 credits"
-  },
-  "CS 445": {
-    "title": "Artificial Intelligence",
-    "credits": "3 credits"
-  },
-  "CS 450": {
-    "title": "Compilers",
-    "credits": "3 credits"
-  },
-  "CS 465": {
-    "title": "Topics: Computing Theory",
-    "credits": "1-3 credits"
-  },
-  "CS 466": {
-    "title": "Topics: General Computing Applications",
-    "credits": "1-3 credits"
-  },
-  "CS 467": {
-    "title": "Topics: Information Systems Applications",
-    "credits": "1-3 credits"
-  },
-  "CS 472": {
-    "title": "Reusable Software Architectures",
-    "credits": "3 credits"
-  },
-  "CS 476": {
-    "title": "Distributed Systems: Concepts and Design",
-    "credits": "3 credits"
-  },
-  "CS 482": {
-    "title": "Internet/Web Architecture and Development",
-    "credits": "3 credits"
-  },
-  "CS 491": {
-    "title": "Practicum in Computer Science   (only 3 credits applied to major)",
-    "credits": "3 or 6 credits"
-  },
-  "CS 495": {
-    "title": "Computer Science Research Seminar",
-    "credits": "3 credits"
-  },
-  "PHYS 332": {
-    "title": "Digital Circuits",
-    "credits": "3 credits"
-  },
-  "PHYS 333": {
-    "title": "Microprocessor Electronics",
-    "credits": "3 credits"
-  },
-  "COMP 115": {
-    "title": "0",
-    "credits": "?"
-  },
-  "COMP 224": {
-    "title": "3",
-    "credits": "?"
-  },
-  "MATH 221": {
-    "title": "8",
-    "credits": "?"
-  },
-  "MATH 235": {
-    "title": "0",
-    "credits": "?"
-  },
   "DSCI 415": {
     "title": "Unsupervised Learning",
     "credits": "3 credits"
@@ -5307,6 +5231,14 @@
     "title": "Analytical Chemistry I",
     "credits": "4 credits"
   },
+  "PHYS 221": {
+    "title": "University Physics I   AND",
+    "credits": "4 credits"
+  },
+  "PHYS 222": {
+    "title": "University Physics II",
+    "credits": "4 credits"
+  },
   "CHEM 414": {
     "title": "Physical Chemistry II   AND",
     "credits": "3 credits"
@@ -5321,6 +5253,10 @@
   },
   "CHEM 450": {
     "title": "Advanced Inorganic Chemistry I",
+    "credits": "4 credits"
+  },
+  "CHEM 320": {
+    "title": "Environmental Chemistry   or any additional 400-level CHEM course",
     "credits": "4 credits"
   },
   "CHEM 451": {
@@ -5491,29 +5427,17 @@
     "title": "Independent Study",
     "credits": "1-3 credits"
   },
-  "ACCT 221": {
-    "title": "7",
+  "ACCT 2217": {
+    "title": "",
     "credits": "?"
   },
-  "ACCT 300": {
-    "title": "/400-level",
-    "credits": "?"
+  "CS 216": {
+    "title": "Web Technology II",
+    "credits": "3 credits"
   },
-  "BUSA 300": {
-    "title": "/400-level (not BUSA 398)",
-    "credits": "?"
-  },
-  "ECON 300": {
-    "title": "/400-level",
-    "credits": "?"
-  },
-  "FIN 300": {
-    "title": "/400-level",
-    "credits": "?"
-  },
-  "MGMT 300": {
-    "title": "/400-level",
-    "credits": "?"
+  "ART 360": {
+    "title": "New Media and Technology Design",
+    "credits": "3 credits"
   },
   "MATH 222": {
     "title": "Data-Driven Mathematical Modeling",
@@ -5651,6 +5575,14 @@
     "title": "Physical Geography",
     "credits": "3 credits"
   },
+  "SUST 301": {
+    "title": "Energy and Sustainable Living",
+    "credits": "3 credits"
+  },
+  "SUST 420": {
+    "title": "Sustainability and Environmental Citizenship",
+    "credits": "3 credits"
+  },
   "GEOS 470": {
     "title": "Geological Research Strategies",
     "credits": "2 credits"
@@ -5661,6 +5593,10 @@
   },
   "GEOS 105": {
     "title": "Astronomy with Laboratory",
+    "credits": "4 credits"
+  },
+  "PHYS 115": {
+    "title": "Conceptual Physics",
     "credits": "4 credits"
   },
   "BIOL 406": {
@@ -5766,10 +5702,6 @@
   "MATH 347": {
     "title": "Number Theory",
     "credits": "3 credits"
-  },
-  "STAT 320": {
-    "title": "Statistical Quality Control  or above",
-    "credits": "?"
   },
   "MATH 452": {
     "title": "Advanced Calculus I",
@@ -5877,6 +5809,14 @@
   },
   "CHEM 106": {
     "title": "Chemistry in Our World",
+    "credits": "3 credits"
+  },
+  "ENG 120": {
+    "title": "Introduction to Literature",
+    "credits": "3 credits"
+  },
+  "ENG 230": {
+    "title": "Literature and the Environment",
     "credits": "3 credits"
   },
   "GS 460": {

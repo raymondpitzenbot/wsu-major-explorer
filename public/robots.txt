@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wsu-major-explorer.vercel.app/sitemap.xml
