@@ -101,7 +101,7 @@ const AboutPage: React.FC = () => {
 
               <div className="space-y-6">
                 <DetailBlock
-                  title="Methodology Approach"
+                  title="Approach"
                   items={[
                     "Unifies data from multiple isolated sources (Catalog, IPAR, State Data)",
                     "Reformats complex degree requirements for readability",
