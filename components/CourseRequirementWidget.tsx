@@ -1,7 +1,7 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { CourseGroup, Course, CourseText } from '../types';
-import { ChevronDown, ChevronRight, BookOpen, AlertCircle, Calendar } from 'lucide-react';
+import { BookOpen, AlertCircle, Calendar } from 'lucide-react';
 
 interface CourseRequirementWidgetProps {
     courseStructure: CourseGroup[];
@@ -71,14 +71,13 @@ const CourseItem: React.FC<{ item: Course | CourseText }> = ({ item }) => {
     }
 
     return (
-        <div className="flex items-start gap-2 p-1.5 bg-gray-900/20 border border-gray-800/60 transition-colors hover:bg-gray-800/40">
-            <div className="mt-1.5 w-1 h-1 rounded-full bg-gray-600 shrink-0 opacity-50"></div>
+        <div className="flex items-start gap-2 p-1.5 bg-gray-900/40 border border-gray-800 transition-colors hover:bg-gray-800/60">
             <div className="min-w-0 flex-grow">
-                {courseId && <div className="font-bold text-gray-300 text-xs leading-tight">{courseId}</div>}
-                <div className="text-[11px] text-gray-400 leading-tight">{cleanedTitle}</div>
+                {courseId && <div className="font-bold text-gray-100 text-xs leading-tight">{courseId}</div>}
+                <div className="text-[11px] text-gray-300 leading-tight mt-0.5">{cleanedTitle}</div>
             </div>
             {item.credits && (
-                <div className="self-center text-[10px] font-bold text-white px-2 py-1 border border-white/20 uppercase tracking-wider shrink-0">
+                <div className="self-center text-[10px] font-bold text-white px-2 py-1 border border-white/30 uppercase tracking-wider shrink-0 bg-gray-800 rounded-sm min-w-[45px] text-center shadow-sm">
                     {item.credits.replace(/[a-z]/gi, '').trim()} CR
                 </div>
             )}
@@ -105,12 +104,12 @@ const RecursiveSection: React.FC<{ group: CourseGroup; depth: number }> = ({ gro
     let displayCredits = group.credits_required || creditsFromHeader;
 
     return (
-        <div className={`flex flex-col ${depth > 0 ? 'ml-3 pl-3 border-l border-gray-800/30' : ''}`}>
+        <div className={`flex flex-col ${depth > 0 ? 'ml-4 pl-4 border-l-2 border-blue-500/10 hover:border-blue-500/30 transition-colors' : ''}`}>
             {cleanedName && (
-                <div className={`flex items-end justify-between ${getHeaderStyle(depth)}`}>
+                <div className={`flex items-center justify-between pr-1.5 ${getHeaderStyle(depth)}`}>
                     <span className="flex-grow mr-2">{cleanedName}</span>
                     {displayCredits && (
-                        <span className="shrink-0 text-[10px] font-bold px-2 py-1 border bg-amber-900/10 text-amber-500/80 border-amber-900/20">
+                        <span className="shrink-0 text-[10px] font-bold px-2 py-1 border bg-amber-500/10 text-amber-400 border-amber-500/30 rounded-sm">
                             {depth > 0 ? `CHOOSE ${displayCredits} CR` : `${displayCredits} CR`}
                         </span>
                     )}
@@ -148,15 +147,22 @@ const RecursiveSection: React.FC<{ group: CourseGroup; depth: number }> = ({ gro
 };
 
 const CourseRequirementWidget: React.FC<CourseRequirementWidgetProps> = ({ courseStructure }) => {
-    const [isOpen, setIsOpen] = useState(true);
-
     const catalogTimeline = useMemo(() => {
         const extract = (structure: CourseGroup[]): string | null => {
             for (const group of structure) {
                 for (const item of group.items) {
                     if (item.type === 'text') {
-                        const match = item.content.match(/(20\d{2}-20\d{2}|\d{2}-\d{2})/);
-                        if (match) return match[1];
+                        const match = item.content.match(/(20\d{2})-(20\d{2}|\d{2})/);
+                        if (match) {
+                            const year1 = parseInt(match[1]);
+                            const year2 = match[2].length === 2 ? parseInt(`20${match[2]}`) : parseInt(match[2]);
+
+                            // Only accept if years are consecutive (academic year pattern)
+                            // e.g., 2024-2025 is valid, but 2022-2032 is not
+                            if (year2 === year1 + 1) {
+                                return `${year1}-${year2}`;
+                            }
+                        }
                     }
                 }
                 if (group.subgroups) {
@@ -166,45 +172,28 @@ const CourseRequirementWidget: React.FC<CourseRequirementWidgetProps> = ({ cours
             }
             return null;
         };
-        const found = extract(courseStructure);
-        if (found) {
-            const parts = found.split('-');
-            const start = parts[0].length === 2 ? `20${parts[0]}` : parts[0];
-            const end = parts[1].length === 2 ? `20${parts[1]}` : parts[1];
-            return `${start}-${end}`;
-        }
-        return "2024-2025";
+        return extract(courseStructure) || "2024-2025";
     }, [courseStructure]);
 
     if (!courseStructure || courseStructure.length === 0) return null;
 
     return (
         <div className="space-y-6">
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center justify-between pb-2 border-b border-gray-800 hover:bg-gray-900/50 transition-colors group rounded px-2 -mx-2"
-            >
-                <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2 text-gray-400">
-                        <Calendar size={14} />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Academic Year</span>
-                    </div>
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-md border ${catalogTimeline.includes('2025-2026') ? 'bg-purple-900/30 text-purple-400 border-purple-800' : 'bg-blue-900/10 text-blue-400/80 border-blue-900/30'}`}>
-                        {catalogTimeline}
-                    </span>
+            <div className="flex items-center justify-between pb-3 border-b border-gray-800/60 px-1">
+                <div className="flex items-center gap-2">
+                    <Calendar size={14} className="text-gray-500" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Academic Year</span>
                 </div>
-                <div className="text-gray-500 group-hover:text-gray-300 transition-colors">
-                    {isOpen ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-                </div>
-            </button>
+                <span className={`text-[8px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-tighter ${catalogTimeline.includes('2025-2026') ? 'bg-purple-950/40 text-purple-400/80 border-purple-900/40' : 'bg-blue-950/40 text-blue-400/80 border-blue-900/40'}`}>
+                    {catalogTimeline} WSU Catalog
+                </span>
+            </div>
 
-            {isOpen && (
-                <div className="animate-fade-in space-y-6">
-                    {courseStructure.map((group, idx) => (
-                        <RecursiveSection key={idx} group={group} depth={0} />
-                    ))}
-                </div>
-            )}
+            <div className="animate-fade-in space-y-6">
+                {courseStructure.map((group, idx) => (
+                    <RecursiveSection key={idx} group={group} depth={0} />
+                ))}
+            </div>
         </div>
     );
 };

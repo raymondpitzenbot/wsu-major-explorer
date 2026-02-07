@@ -1,23 +1,39 @@
-
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { useData } from '../contexts/DataContext';
-import { ArrowLeft, ExternalLink, Scale, CheckCircle, XCircle, Briefcase, Handshake, Building, MapPin, BookOpen, TrendingUp, TrendingDown, Minus, Users } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Scale, CheckCircle, XCircle, Briefcase, Handshake, Building, MapPin, BookOpen, TrendingUp, TrendingDown, Minus, Users, ChevronDown } from 'lucide-react';
 import { useCompare } from '../contexts/CompareContext';
 import { CareerOutcome } from '../types';
 import CourseRequirementWidget from '../components/CourseRequirementWidget';
+import ProfessorWidget from '../components/ProfessorWidget';
+import professorsData from '../data/professors_data.json';
 
 // Helper Components
-const Widget: React.FC<{ title: string, icon?: React.ReactNode, children: React.ReactNode, year?: string }> = ({ title, icon, children, year }) => (
-    <div className="p-6 bg-gray-900 rounded-xl border border-gray-800 shadow-sm relative overflow-hidden">
-        <h2 className="text-2xl font-bold mb-4 flex items-center justify-between text-white">
-            <span className="flex items-center gap-3">{icon} {title}</span>
-            {year && <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-gray-800 border border-gray-700 text-gray-500 uppercase tracking-widest">{year}</span>}
-        </h2>
-        {children}
-    </div>
-);
+const Widget: React.FC<{ title: string, icon?: React.ReactNode, children: React.ReactNode, year?: string, defaultOpen?: boolean }> = ({ title, icon, children, year, defaultOpen = true }) => {
+    const [isOpen, setIsOpen] = React.useState(defaultOpen);
+
+    return (
+        <div className="bg-gray-900 rounded-xl border border-gray-800 shadow-sm relative overflow-hidden transition-all duration-300">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-full p-6 flex items-center justify-between text-left group hover:bg-gray-800/20 transition-colors"
+            >
+                <h2 className="text-xl sm:text-2xl font-bold flex items-center text-white">
+                    <span className="flex items-center gap-3">{icon} {title}</span>
+                    {year && <span className="ml-3 text-[10px] font-bold px-2 py-0.5 rounded bg-gray-800 border border-gray-700 text-gray-500 uppercase tracking-widest">{year}</span>}
+                </h2>
+                <ChevronDown className={`text-gray-500 group-hover:text-white transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {isOpen && (
+                <div className="px-6 pb-6 border-t border-gray-800/50 pt-6">
+                    {children}
+                </div>
+            )}
+        </div>
+    );
+};
 
 const CareerOutlookCard: React.FC<{ outcome: CareerOutcome }> = ({ outcome }) => {
     return (
@@ -127,8 +143,8 @@ const ProgramDetailPage: React.FC = () => {
                     </Link>
 
                     <div className="relative z-10 p-6 -mx-4 sm:-mx-6 rounded-2xl bg-gradient-to-br from-gray-800/40 to-transparent border border-white/5 shadow-2xl backdrop-blur-sm">
-                        <h1 className="text-3xl sm:text-5xl font-black text-white leading-tight mb-3">{program.program_name}</h1>
-                        <div className="text-primary-400 text-[10px] font-black inline-block px-2.5 py-1 rounded-md mb-2 font-body bg-primary-500/10 border border-primary-500/20 uppercase tracking-tighter">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-snug mb-4 tracking-tight break-words">{program.program_name}</h1>
+                        <div className="text-primary-400 text-xs font-bold inline-block px-3 py-1.5 rounded-md mb-3 font-body bg-primary-500/10 border border-primary-500/20 uppercase tracking-wide">
                             {program.expanded_degree_type || program.degree_type}
                         </div>
 
@@ -194,7 +210,7 @@ const ProgramDetailPage: React.FC = () => {
 
                         {/* Course Requirements Widget */}
                         {program.course_structure && (
-                            <Widget title="Program Requirements" icon={<BookOpen size={24} className="text-purple-400" />}>
+                            <Widget title="Program Requirements" icon={<BookOpen size={24} className="text-purple-400" />} defaultOpen={false}>
                                 <CourseRequirementWidget courseStructure={program.course_structure} />
                             </Widget>
                         )}
@@ -236,26 +252,37 @@ const ProgramDetailPage: React.FC = () => {
                         <div className="p-6 bg-gray-900 rounded-xl border border-gray-800 shadow-sm relative overflow-hidden">
                             <h3 className="text-xs font-black text-white uppercase tracking-widest mb-4 flex justify-between items-center">
                                 <span>Program Snapshot</span>
-                                <span className="text-[10px] font-black px-1.5 py-0.5 rounded bg-blue-900/10 text-blue-400 border border-blue-900/30 uppercase tracking-tighter">Source: IPAR (2025)</span>
+                                <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-950/30 text-blue-400/70 border border-blue-900/30 uppercase tracking-tighter">IPAR (2021)</span>
                             </h3>
                             <dl className="space-y-1">
                                 <SnapshotRow label="Est. Time" value="4 years" />
                                 <SnapshotRow label="Program Credits" value={program.program_credits} />
                                 <SnapshotRow label="Total Credits" value={program.total_credits} />
-                                <SnapshotRow label="WSU Enrollment" value={`${program.enrollment_fall_2021 ?? 'N/A'}`} trend={program.enrollment_trend} />
-                                <SnapshotRow label="Degrees Awarded" value={`${program.graduates_total ?? 'N/A'}`} />
+                                <SnapshotRow label="Fall 2021 Enrollment" value={`${program.enrollment_fall_2021 ?? 'N/A'}`} trend={program.enrollment_trend} />
+                                <SnapshotRow label="Graduates (2021)" value={`${program.graduates_total ?? 'N/A'}`} />
                             </dl>
                         </div>
 
                         {program.department && (
                             <div className="p-6 bg-gray-900 rounded-xl border border-gray-800 shadow-sm">
-                                <h3 className="text-xs font-black text-white uppercase tracking-widest mb-4">Department Info</h3>
+                                <h3 className="text-xs font-black text-white uppercase tracking-widest mb-4 flex justify-between items-center">
+                                    <span>Department Info</span>
+                                    <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-950/30 text-blue-400/70 border border-blue-900/30 uppercase tracking-tighter">IPAR (2021)</span>
+                                </h3>
                                 <dl className="space-y-1">
                                     <SnapshotRow label="Name" value={program.department.department_name} />
                                     <SnapshotRow label="Enrollment" value={program.department.total_enrollment_fall_2021 ?? 'N/A'} />
                                     <SnapshotRow label="Size Rank" value={program.department.rank ? `Rank ${program.department.rank} of ${totalDepartments}` : 'N/A'} />
                                 </dl>
                             </div>
+                        )}
+
+                        {/* Professor Widget */}
+                        {program.department && (
+                            <ProfessorWidget
+                                departmentId={program.department.department_id}
+                                professorsData={professorsData}
+                            />
                         )}
 
                         {program.recommended_minors && program.recommended_minors.length > 0 && (

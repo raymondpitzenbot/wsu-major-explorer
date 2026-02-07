@@ -58,9 +58,9 @@ const AboutPage: React.FC = () => {
               This platform is built with official, verifiable data. Complete transparency about where information comes from is essential.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {dataSources.map((source) => (
-              <div key={source.source_id} className="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-primary-500/50 transition-colors group">
+              <div key={source.source_id} className="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-primary-500/50 transition-all group flex flex-col h-full">
                 <div className="flex items-center justify-between mb-4">
                   <div className="p-2 bg-gray-800 rounded-lg text-primary-400 group-hover:text-primary-300 transition-colors">
                     <Database size={20} />
@@ -72,17 +72,19 @@ const AboutPage: React.FC = () => {
                 <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">
                   {source.source_name}
                 </h3>
-                <p className="text-sm text-gray-400 font-body leading-relaxed mb-4">
+                <p className="text-sm text-gray-400 font-body leading-relaxed mb-6">
                   {source.source_notes}
                 </p>
-                <a
-                  href={source.source_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-primary-500 hover:text-primary-300 uppercase tracking-widest"
-                >
-                  Verify Source <ArrowRight size={12} />
-                </a>
+                <div className="mt-auto">
+                  <a
+                    href={source.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-primary-500 hover:text-primary-300 uppercase tracking-widest transition-colors"
+                  >
+                    Verify Source <ArrowRight size={12} />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
