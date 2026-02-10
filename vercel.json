@@ -9,7 +9,7 @@
         }
       ],
       "destination": "https://explorewsu.vercel.app/$1",
-      "permanent": true
+      "statusCode": 301
     }
   ]
 }
