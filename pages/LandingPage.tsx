@@ -102,7 +102,7 @@ const LandingPage: React.FC = () => {
             <Helmet>
                 <title>Winona State Explorer | Winona State Degrees & Programs</title>
                 <meta name="description" content="Explore details on 200+ Winona State University majors, minors, and degrees. Compare programs, view requirements, and find your perfect fit." />
-                <link rel="canonical" href="https://explorewinona.vercel.app/" />
+                <link rel="canonical" href="https://explorewsu.vercel.app/" />
             </Helmet>
             <DynamicBackground className="relative isolate">
                 <div className="min-h-[calc(65vh)] flex items-center justify-center spotlight relative z-10 px-6 py-20">

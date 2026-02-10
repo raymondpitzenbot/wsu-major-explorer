@@ -8,7 +8,7 @@
           "value": "wsu-major-explorer.vercel.app"
         }
       ],
-      "destination": "https://explorewinona.vercel.app/$1",
+      "destination": "https://explorewsu.vercel.app/$1",
       "permanent": true
     }
   ]

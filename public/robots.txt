@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://explorewinona.vercel.app/sitemap.xml
+Sitemap: https://explorewsu.vercel.app/sitemap.xml
