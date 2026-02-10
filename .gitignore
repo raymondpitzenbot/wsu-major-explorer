@@ -33,6 +33,7 @@ scripts/
 *.csv
 *.pdf
 private/
-public/robots.txt
-public/sitemap.xml
-google*.html
+# robots.txt, sitemap.xml, and verification files are allowed
+!public/robots.txt
+!public/sitemap.xml
+!public/google*.html
