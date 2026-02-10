@@ -100,49 +100,30 @@ const LandingPage: React.FC = () => {
     return (
         <>
             <Helmet>
-                <title>WSU Major Explorer | Winona State Degrees & Programs</title>
+                <title>Winona State Explorer | Winona State Degrees & Programs</title>
                 <meta name="description" content="Explore details on 200+ Winona State University majors, minors, and degrees. Compare programs, view requirements, and find your perfect fit." />
-                <link rel="canonical" href="https://wsu-major-explorer.vercel.app/" />
+                <link rel="canonical" href="https://explorewinona.vercel.app/" />
             </Helmet>
             <DynamicBackground className="relative isolate">
-                <div className="min-h-[calc(80vh)] flex items-center justify-center spotlight relative z-10">
-                    <div className="text-center px-6 lg:px-8">
-                        <div className="mx-auto max-w-4xl">
-                            <h1 className="text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl lg:text-8xl animate-fade-in-up">
-                                Major Decisions, Made Simpler.
+                <div className="min-h-[calc(65vh)] flex items-center justify-center spotlight relative z-10 px-6 py-20">
+                    <div className="text-center w-full max-w-6xl">
+                        <div className="mx-auto">
+                            <h1 className="text-6xl font-bold tracking-tight text-gray-950 sm:text-7xl lg:text-8xl animate-fade-in-up leading-[1.1]">
+                                Major Decisions,<br />
+                                Made Simpler.
                             </h1>
-                            <div className="mt-8 text-lg text-gray-900">
-                                <div className="relative h-10 w-80 mx-auto">
-                                    {promptBubbles.map((prompt, index) => (
-                                        <div
-                                            key={prompt}
-                                            className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out ${index === currentPrompt ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'}`}
-                                        >
-                                            <Link
-                                                to={`/explore?interest=${interestMappings[prompt].id}`}
-                                                className="font-body cursor-pointer inline-block whitespace-nowrap rounded-full bg-white/80 px-4 py-1.5 font-semibold text-gray-900 ring-1 ring-inset ring-gray-200 hover:bg-white hover:text-primary-600 shadow-sm hover:shadow-md transition-all"
-                                            >
-                                                I want to {prompt}
-                                            </Link>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                            <p className="mt-8 text-lg leading-8 text-gray-600 font-body max-w-2xl mx-auto">
-                                All the information students search for — brought together to support one clear path.
+
+                            <p className="mt-12 text-xl sm:text-2xl leading-relaxed text-gray-800 font-medium max-w-4xl mx-auto animate-fade-in" style={{ animationDelay: '200ms' }}>
+                                We did the research so you don't have to. Discover programs, compare side-by-side, and get AI powered insights to help you navigate your options with ease.
                             </p>
-                            <div className="mt-10 flex items-center justify-center gap-x-6">
+
+                            <div className="mt-12 flex items-center justify-center animate-fade-in" style={{ animationDelay: '400ms' }}>
                                 <Link
                                     to="/explore"
-                                    className="font-body flex items-center gap-2 rounded-md bg-primary-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 transition-transform transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                                    className="font-body w-full sm:w-auto flex items-center justify-center gap-3 rounded-2xl bg-gray-900 px-12 py-5 text-xl font-bold text-white shadow-2xl hover:bg-gray-800 transition-all hover:scale-[1.05] active:scale-[0.98] ring-4 ring-gray-900/10"
                                 >
-                                    <Search size={16} /> Explore Programs
-                                </Link>
-                                <Link
-                                    to="/advisor"
-                                    className="font-body flex items-center gap-2 rounded-md bg-white border border-gray-200 px-5 py-3 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-transform transform hover:scale-105 shadow-sm"
-                                >
-                                    <MessageSquare size={16} /> Ask the Advisor
+                                    <Search size={24} strokeWidth={2.5} />
+                                    Start Exploring
                                 </Link>
                             </div>
                         </div>

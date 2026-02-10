@@ -153,7 +153,7 @@ const AboutPage: React.FC = () => {
                   <div>
                     <h3 className="text-lg font-bold text-gray-900 mb-2">Independent Student Project</h3>
                     <div className="text-gray-600 font-body text-sm leading-relaxed">
-                      WSU Major Explorer was built as an independent project to explore data visualization in higher education. I earn no money from this project, and it is not officially affiliated with WSU administration. However, complete transparency is essential, so this tool is built strictly with official, verifiable data.
+                      Winona State Explorer was built as an independent project to explore data visualization in higher education. I earn no money from this project, and it is not officially affiliated with WSU administration. However, complete transparency is essential, so this tool is built strictly with official, verifiable data.
                     </div>
                   </div>
                 </div>

@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
                     <div className="col-span-2 lg:col-span-1 text-left">
                         <Link to="/" className="inline-flex items-center gap-2">
                             <GraduationCap className="text-primary-600" size={28} />
-                            <span className="text-gray-900 text-lg font-semibold">WSU Major Explorer</span>
+                            <span className="text-gray-900 text-lg font-semibold">Winona State Explorer</span>
                         </Link>
                         <p className="mt-4 text-sm text-gray-500 font-body">
                             Helping students find their path at Winona State University.
@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
                 </div>
                 <div className="mt-12 pt-8 border-t border-gray-200 text-center">
                     <p className="text-sm text-gray-500 font-body">
-                        &copy; {new Date().getFullYear()} WSU Major Explorer. An independent project, not an official WSU resource.
+                        &copy; {new Date().getFullYear()} Winona State Explorer. An independent project, not an official WSU resource.
                     </p>
                 </div>
             </div>

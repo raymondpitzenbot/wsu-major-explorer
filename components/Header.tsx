@@ -23,7 +23,7 @@ const Header: React.FC = () => {
         <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
                 <div className="relative flex items-center justify-between h-16 transition-all duration-300">
-                    {}
+                    { }
                     <div className="flex items-center transition-all duration-300 ease-in-out">
                         <div
                             role="link"
@@ -34,20 +34,20 @@ const Header: React.FC = () => {
                             }}
                             className="flex items-center gap-3 group relative z-20 touch-manipulation cursor-pointer"
                         >
-                            <div className="p-2 rounded-lg border border-gray-200 bg-white/50 transition-all duration-300 group-hover:border-primary-500/50 group-hover:bg-primary-500/10 group-hover:shadow-[0_0_15px_-3px_rgba(99,102,241,0.3)]">
-                                <GraduationCap className="text-primary-600 transition-transform duration-300 group-hover:scale-110" size={24} />
+                            <div className="p-2 rounded-lg border border-gray-200 bg-white/50 transition-all duration-300">
+                                <GraduationCap className="text-primary-600" size={24} />
                             </div>
                             <span className="text-gray-900 text-lg font-semibold tracking-tight transition-all duration-300 hidden lg:block">
-                                WSU Major Explorer
+                                Winona State Explorer
                             </span>
                         </div>
                     </div>
 
-                    {}
+                    { }
                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex">
                         <nav className="flex items-center space-x-10">
                             <NavLink to="/explore" className={navLinkClasses}>
-                                Explore
+                                Catalog
                             </NavLink>
                             <NavLink to="/compare" className={navLinkClasses}>
                                 Compare
@@ -61,15 +61,15 @@ const Header: React.FC = () => {
                         </nav>
                     </div>
 
-                    {}
+                    { }
                     <div className="flex items-center gap-2 sm:gap-4">
-                        {}
+                        { }
                         <div className="hidden xl:flex items-center gap-2 px-3 py-1 text-sm font-medium text-yellow-500 bg-yellow-500/10 rounded-full border border-yellow-500/20">
                             <Hammer size={16} />
                             <span>This site is actively under construction as of 2/2/2026</span>
                         </div>
 
-                        {}
+                        { }
                         <div className="xl:hidden relative">
                             <button
                                 className="flex items-center justify-center p-2 text-yellow-500 bg-yellow-500/10 rounded-full border border-yellow-500/20 hover:bg-yellow-500/20 transition-colors"
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
                                 <Hammer size={18} />
                             </button>
 
-                            {}
+                            { }
                             <div
                                 className={`absolute right-0 top-full mt-2 w-56 p-4 bg-white border border-gray-200 rounded-xl shadow-xl shadow-gray-200/50 text-sm font-medium text-gray-800 transition-all duration-200 z-50 transform origin-top-right ${isConstructionTooltipOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}`}
                             >
@@ -130,7 +130,7 @@ const Header: React.FC = () => {
                                         setIsMenuOpen(false);
                                     }}
                                 >
-                                    {name}
+                                    {path === '/explore' ? 'Catalog' : name}
                                 </div>
                             );
                         })}

@@ -1,20 +1,18 @@
 import React from 'react';
 
 const colorPalettes = [
-    ['rgba(126, 34, 206, 0.25)', 'rgba(30, 58, 138, 0.3)', 'rgba(239, 68, 68, 0.2)'], 
-    ['rgba(147, 51, 234, 0.25)', 'rgba(250, 204, 21, 0.25)', 'rgba(249, 115, 22, 0.2)'], 
-    ['rgba(67, 56, 202, 0.3)', 'rgba(12, 74, 110, 0.3)', 'rgba(236, 72, 153, 0.2)'], 
-    ['rgba(109, 40, 217, 0.25)', 'rgba(220, 38, 38, 0.2)', 'rgba(251, 146, 60, 0.25)'], 
+    ['rgba(99, 102, 241, 0.3)', 'rgba(59, 130, 246, 0.25)', 'rgba(168, 85, 247, 0.2)'],
+    ['rgba(79, 70, 229, 0.35)', 'rgba(37, 99, 235, 0.3)', 'rgba(139, 92, 246, 0.25)'],
+    ['rgba(67, 56, 202, 0.3)', 'rgba(14, 165, 233, 0.2)', 'rgba(192, 132, 252, 0.25)'],
 ];
 
 const blobColors = [
-    'bg-purple-600',
-    'bg-blue-800',
-    'bg-yellow-400',
-    'bg-orange-500',
-    'bg-red-500',
-    'bg-violet-600',
-    'bg-cyan-700'
+    'bg-indigo-500',
+    'bg-blue-600',
+    'bg-purple-500',
+    'bg-violet-500',
+    'bg-cyan-500',
+    'bg-blue-400',
 ];
 
 const shuffleArray = <T,>(array: T[]): T[] => {
@@ -27,7 +25,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 };
 
 const generateRandomStyles = () => {
-    
+
     const [color1, color2, color3] = shuffleArray(colorPalettes[Math.floor(Math.random() * colorPalettes.length)]);
     const auroraStyles = {
         '--pos1': `${Math.random() * 100}% ${Math.random() * 100}%`,
@@ -38,7 +36,7 @@ const generateRandomStyles = () => {
         '--color3': color3,
     } as React.CSSProperties;
 
-    
+
     const shuffledColors = shuffleArray(blobColors);
     const blobs = [
         {
