@@ -1,4 +1,4 @@
-import { systemInstruction } from "./private/ai_config.js";
+import { systemInstruction } from "./utils/ai_config.js";
 import { enforceAiLimits, redis } from "./utils/rateLimit.js";
 import cors from "cors";
 import express from "express";
