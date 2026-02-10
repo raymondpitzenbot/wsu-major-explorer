@@ -1,6 +1,6 @@
 import { Redis } from "@upstash/redis";
 
-const redis = Redis.fromEnv();
+export const redis = Redis.fromEnv();
 
 function getClientIp(req) {
   const xff = req.headers["x-forwarded-for"];
@@ -20,12 +20,12 @@ export async function enforceAiLimits(req, res) {
   const ip = getClientIp(req);
   const day = todayKey();
 
-  
-  const DAILY_LIMIT = 10;        
-  const BURST_LIMIT = 20;        
-  const BURST_WINDOW_SEC = 600;  
-  const MAX_CHARS = 6000;        
-  
+
+  const DAILY_LIMIT = 10;
+  const BURST_LIMIT = 20;
+  const BURST_WINDOW_SEC = 600;
+  const MAX_CHARS = 6000;
+
 
   const msg = req.body?.message ?? req.body?.text ?? req.body?.userQuery ?? "";
   if (typeof msg === "string" && msg.length > MAX_CHARS) {
@@ -65,8 +65,8 @@ export async function enforceAiLimits(req, res) {
     return true;
   } catch (err) {
     console.error("[rateLimit] error:", err?.message || err);
-    
-res.status(503).json({ error: "Rate limiter unavailable", detail: (err?.message || String(err)) });
+
+    res.status(503).json({ error: "Rate limiter unavailable", detail: (err?.message || String(err)) });
     return false;
   }
 }

@@ -19,7 +19,7 @@ export interface Program {
     program_page_url: string;
     description?: string;
     short_description?: string;
-    overview?: string; 
+    overview?: string;
     you_might_like?: string[];
     not_for_you?: string[];
     related_job_titles?: string[];
@@ -27,7 +27,7 @@ export interface Program {
     catalog_year?: string;
     academic_year?: string;
 
-    
+
     department?: Department;
     expanded_degree_type?: string;
     enrollment_fall_2021?: number | null;
@@ -37,36 +37,37 @@ export interface Program {
     clubs?: Club[];
     data_coverage_score?: number;
     course_structure?: CourseGroup[];
+    tags?: string[];
 }
 
 export interface Course {
-    course_id: string; 
-    course_title: string; 
-    credits: string; 
+    course_id: string;
+    course_title: string;
+    credits: string;
     description?: string;
 }
 
 
 export interface CourseGroup {
-    group_name: string; 
+    group_name: string;
     credits_required?: string;
-    
+
     display_type?: 'list' | 'choice_credits' | 'choice_count';
-    items: (Course | CourseText)[]; 
+    items: (Course | CourseText)[];
     subgroups?: CourseGroup[];
     notes?: string[];
 }
 
 export interface CourseText {
     type: 'text';
-    content: string; 
+    content: string;
 }
 
 export interface Course {
     type: 'course';
-    course_id: string; 
-    course_title: string; 
-    credits: string; 
+    course_id: string;
+    course_title: string;
+    credits: string;
     description?: string;
 }
 
