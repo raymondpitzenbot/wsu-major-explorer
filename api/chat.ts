@@ -13,7 +13,7 @@ const AI_ENABLED = process.env.AI_ENABLED ?? "true";
 const RATE_LIMIT_MAX_REQUESTS = Number(process.env.RATE_LIMIT_MAX_REQUESTS ?? 15);
 const MAX_INPUT_CHARS = Number(process.env.MAX_INPUT_CHARS ?? 1000);
 const MAX_OUTPUT_TOKENS = Number(process.env.MAX_OUTPUT_TOKENS ?? 200); // Reduced from 300
-const MAX_HISTORY_MESSAGES = Number(process.env.MAX_HISTORY_MESSAGES ?? 3); // Reduced from 5
+const MAX_HISTORY_MESSAGES = Number(process.env.MAX_HISTORY_MESSAGES ?? 5); // Keep at 5 for better context
 const MAX_HISTORY_MSG_CHARS = Number(process.env.MAX_HISTORY_MSG_CHARS ?? 1000); // Reduced from 1500
 
 const openai = OPENAI_API_KEY ? new OpenAI({ apiKey: OPENAI_API_KEY }) : null;
