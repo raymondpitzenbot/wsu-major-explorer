@@ -46,6 +46,10 @@ async function applyRateLimiter(req: NextApiRequest): Promise<boolean> {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log("API Handler Start. Method:", req.method);
+  console.log("OpenAI Key Present:", !!OPENAI_API_KEY);
+  console.log("Redis Present:", !!redis);
+
   if (!openai) {
     console.error("OPENAI_API_KEY is missing from environment variables.");
     return res.status(500).json({
@@ -61,11 +65,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  if (!(await applyRateLimiter(req))) {
-    return res.status(429).json({ error: "Daily message limit exceeded. Please try again tomorrow." });
-  }
-
   try {
+    if (!(await applyRateLimiter(req))) {
+      return res.status(429).json({ error: "Daily message limit exceeded. Please try again tomorrow." });
+    }
+
     const { chatHistory, userQuery } = req.body;
 
     if (!userQuery || typeof userQuery !== "string" || !Array.isArray(chatHistory)) {
@@ -143,8 +147,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     return res.status(200).json({ text: responseText });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in /api/chat:", error);
-    return res.status(500).json({ error: "An internal server error occurred." });
+    // Return the actual error message if possible for debugging
+    const message = error instanceof Error ? error.message : "An internal server error occurred.";
+    return res.status(500).json({ error: `Server Error: ${message}` });
   }
 }

@@ -66,7 +66,10 @@ const AdvisorPage: React.FC = () => {
             const modelMessage: ChatMessage = { role: 'model', text: responseText };
             setMessages(prev => [...prev, modelMessage]);
         } catch (error) {
-            const errorMessage: ChatMessage = { role: 'model', text: "I'm sorry, I encountered an error. Please try again." };
+            console.error("Advisor Error:", error);
+            // Show the specific error message to help with debugging
+            const errorMessageText = error instanceof Error ? error.message : "I'm sorry, I encountered an unexpected error.";
+            const errorMessage: ChatMessage = { role: 'model', text: `Debug Error: ${errorMessageText}` };
             setMessages(prev => [...prev, errorMessage]);
         } finally {
             setIsLoading(false);

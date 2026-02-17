@@ -10,7 +10,7 @@ const COMMON_QUERIES_CACHE = new Map<string, string>([
 
 
 export const getAdvisorResponse = async (chatHistory: { role: 'user' | 'model'; parts: { text: string }[] }[], userQuery: string): Promise<string> => {
-    
+
     const normalizedQuery = userQuery.trim().toLowerCase().replace(/[^\w\s]/g, '');
     if (COMMON_QUERIES_CACHE.has(normalizedQuery)) {
         return COMMON_QUERIES_CACHE.get(normalizedQuery)!;
@@ -26,16 +26,17 @@ export const getAdvisorResponse = async (chatHistory: { role: 'user' | 'model'; 
         });
 
         if (response.status === 429) {
-            
-             const errorData = await response.json().catch(() => ({ error: "You've reached the message limit for today. Please try again tomorrow." }));
+
+            const errorData = await response.json().catch(() => ({ error: "You've reached the message limit for today. Please try again tomorrow." }));
             return errorData.error;
         }
 
         if (!response.ok) {
-            
+
             const errorData = await response.json().catch(() => ({}));
             console.error("Error fetching from /api/chat:", response.status, errorData.error);
-            throw new Error(`Server responded with status: ${response.status}`);
+            // Throw the specific error message from the API if available
+            throw new Error(errorData.error || `Server responded with status: ${response.status}`);
         }
 
         const data = await response.json();
