@@ -120,22 +120,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         `- Total Programs: ${wsuStats.total_programs}\n` +
         `- Bachelor's Degrees: ${wsuStats.bachelor_programs}\n` +
         `- Minors: ${wsuStats.minor_programs}\n` +
-        `- Master's Programs: ${wsuStats.master_programs}`;
+        `- Master's Programs: ${wsuStats.master_programs}\n` +
+        `- Total Professors: ${wsuStats.total_professors}`;
     }
 
-    // Build context snippet from frontend-provided programs
+    // Only add program context if programs were found
     if (programContext && Array.isArray(programContext) && programContext.length > 0) {
       contextSnippet += "\n\nRelevant WSU Programs:\n" +
-        programContext.slice(0, 5).map((p: any) =>
+        programContext.map((p: any) =>
           `- ${p.program_name} (${p.degree_type}): ${p.program_credits || 'varies'} credits. ${p.short_description || ''}`
         ).join("\n");
     }
 
-    // Build professor context snippet from frontend-provided professors
+    // Only add professor context if professors were found
     if (professorContext && Array.isArray(professorContext) && professorContext.length > 0) {
       contextSnippet += "\n\nRelevant WSU Professors:\n" +
-        professorContext.slice(0, 5).map((prof: any) =>
-          `- ${prof.name} (${prof.title}): RateMyProfessor rating ${prof.avg_rating}/5 based on ${prof.num_ratings} reviews, ${prof.would_take_again_percent}% would take again. Teaches: ${prof.courses_taught?.join(', ') || 'N/A'}`
+        professorContext.map((prof: any) =>
+          `- ${prof.name} (${prof.title}): Rating ${prof.avg_rating}/5 (${prof.num_ratings} reviews), ${prof.would_take_again_percent}% would retake. Courses: ${prof.courses_taught}`
         ).join("\n");
     }
 

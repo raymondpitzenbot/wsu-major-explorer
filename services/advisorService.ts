@@ -21,24 +21,67 @@ export const getAdvisorResponse = async (chatHistory: { role: 'user' | 'model'; 
         return COMMON_QUERIES_CACHE.get(normalizedQuery)!;
     }
 
-    // Dynamic program search - cast a wider net and let AI decide what's relevant
+    // Smart question classification - only send relevant context
     const lowerQuery = userQuery.toLowerCase();
+    const isProfessorQuery = /professor|instructor|teacher|faculty|who teaches|rate my professor|rmp|rating/i.test(userQuery);
+    const isProgramQuery = /program|major|degree|minor|bachelor|master|bs|ba|credits|requirements|courses/i.test(userQuery);
+    const isGeneralQuery = /cost|tuition|admission|deadline|housing|financial aid|campus|location/i.test(userQuery);
+
+    // Dynamic program search - only if relevant
     const programSearchTerms = lowerQuery.split(' ').filter(term => term.length > 3);
-    const matchedPrograms = programsRaw.filter(p => {
-        const searchText = `${p.program_name} ${p.degree_type} ${p.short_description || ''}`.toLowerCase();
-        return programSearchTerms.some(term => searchText.includes(term)) ||
-            p.program_name.toLowerCase().includes(lowerQuery);
-    }).slice(0, 5); // Reduced from 10 to 5 to save tokens
+    let matchedPrograms: any[] = [];
 
-    // Dynamic professor search - broader approach
-    // Extract potential keywords from the query for smarter matching
+    if (isProgramQuery || (!isProfessorQuery && !isGeneralQuery)) {
+        // Search with relevance scoring
+        matchedPrograms = programsRaw
+            .map(p => {
+                const searchText = `${p.program_name} ${p.degree_type} ${p.short_description || ''}`.toLowerCase();
+                let score = 0;
+
+                // Exact program name match = highest priority
+                if (searchText.includes(lowerQuery)) score += 10;
+
+                // Keyword matches
+                programSearchTerms.forEach(term => {
+                    if (p.program_name.toLowerCase().includes(term)) score += 5;
+                    else if (searchText.includes(term)) score += 2;
+                });
+
+                return { program: p, score };
+            })
+            .filter(item => item.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 5)
+            .map(item => item.program);
+    }
+
+    // Dynamic professor search - only if relevant
     const keywords = lowerQuery.split(' ').filter(word => word.length > 2);
+    let matchedProfessors: any[] = [];
 
-    const matchedProfessors = allProfessors.filter((prof: any) => {
-        const profText = `${prof.name} ${prof.title} ${prof.courses_taught?.join(' ') || ''}`.toLowerCase();
-        // Match if query contains professor name or if query keywords overlap with their courses
-        return keywords.some(kw => profText.includes(kw));
-    }).slice(0, 5); // Reduced from 15 to 5 to save tokens
+    if (isProfessorQuery) {
+        // Search with relevance scoring
+        matchedProfessors = allProfessors
+            .map((prof: any) => {
+                const profText = `${prof.name} ${prof.title} ${prof.courses_taught?.join(' ') || ''}`.toLowerCase();
+                let score = 0;
+
+                // Name match = highest priority
+                if (profText.includes(lowerQuery)) score += 10;
+
+                // Keyword matches
+                keywords.forEach(kw => {
+                    if (prof.name.toLowerCase().includes(kw)) score += 5;
+                    else if (profText.includes(kw)) score += 1;
+                });
+
+                return { prof, score };
+            })
+            .filter(item => item.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 5)
+            .map(item => item.prof);
+    }
 
     // Generate WSU statistics for general queries
     const wsuStats = {
