@@ -21,59 +21,24 @@ export const getAdvisorResponse = async (chatHistory: { role: 'user' | 'model'; 
         return COMMON_QUERIES_CACHE.get(normalizedQuery)!;
     }
 
-    // Search for relevant programs based on the user's query
+    // Dynamic program search - cast a wider net and let AI decide what's relevant
     const lowerQuery = userQuery.toLowerCase();
+    const programSearchTerms = lowerQuery.split(' ').filter(term => term.length > 3);
     const matchedPrograms = programsRaw.filter(p => {
-        const nameMatch = p.program_name.toLowerCase().includes(lowerQuery);
-        const keywordMatch = Object.values(interestMappings).some(interest =>
-            interest.keywords.some(kw => lowerQuery.includes(kw))
-        );
-        const degreeTypeMatch = lowerQuery.includes(p.degree_type.toLowerCase());
-        return nameMatch || keywordMatch || degreeTypeMatch;
-    }).slice(0, 5); // Limit to 5 most relevant programs
+        const searchText = `${p.program_name} ${p.degree_type} ${p.short_description || ''}`.toLowerCase();
+        return programSearchTerms.some(term => searchText.includes(term)) ||
+            p.program_name.toLowerCase().includes(lowerQuery);
+    }).slice(0, 10); // Increased from 5 to 10 for better context
 
-    // Search for relevant professors based on the user's query
-    const matchedProfessors: any[] = [];
-    const deptKeywordMap: { [key: string]: string[] } = {
-        'english_dept': ['english', 'literature', 'writing', 'film'],
-        'math_dept': ['math', 'mathematics', 'calculus', 'algebra', 'statistics'],
-        'cs_dept': ['computer science', 'programming', 'software', 'cs'],
-        'business_dept': ['business', 'management', 'marketing', 'finance', 'accounting'],
-        'biology_dept': ['biology', 'bio', 'life science'],
-        'chemistry_dept': ['chemistry', 'chem'],
-        'physics_dept': ['physics'],
-        'psychology_dept': ['psychology', 'psych'],
-        'nursing_dept': ['nursing', 'nurse', 'healthcare'],
-        'education_dept': ['education', 'teaching', 'teacher'],
-        'history_dept': ['history', 'historical'],
-        'art_dept': ['art', 'design', 'visual'],
-        'music_dept': ['music', 'musical'],
-        'theater_dept': ['theater', 'theatre', 'drama'],
-    };
+    // Dynamic professor search - broader approach
+    // Extract potential keywords from the query for smarter matching
+    const keywords = lowerQuery.split(' ').filter(word => word.length > 2);
 
-    // Check if query matches any department
-    let matchedDept: string | null = null;
-    for (const [dept, keywords] of Object.entries(deptKeywordMap)) {
-        if (keywords.some(kw => lowerQuery.includes(kw))) {
-            matchedDept = dept;
-            break;
-        }
-    }
-
-    // If department matched, get professors from that department
-    if (matchedDept && professorsData[matchedDept as keyof typeof professorsData]) {
-        matchedProfessors.push(...(professorsData[matchedDept as keyof typeof professorsData] as any[]).slice(0, 10));
-    } else {
-        // Fall back to searching by name or course
-        const searchResults = allProfessors.filter((prof: any) => {
-            const nameMatch = prof.name.toLowerCase().includes(lowerQuery);
-            const courseMatch = prof.courses_taught?.some((course: string) =>
-                lowerQuery.includes(course.toLowerCase())
-            );
-            return nameMatch || courseMatch;
-        });
-        matchedProfessors.push(...searchResults.slice(0, 5));
-    }
+    const matchedProfessors = allProfessors.filter((prof: any) => {
+        const profText = `${prof.name} ${prof.title} ${prof.courses_taught?.join(' ') || ''}`.toLowerCase();
+        // Match if query contains professor name or if query keywords overlap with their courses
+        return keywords.some(kw => profText.includes(kw));
+    }).slice(0, 15); // Send up to 15 professors for better coverage
 
     // Generate WSU statistics for general queries
     const wsuStats = {
@@ -81,6 +46,7 @@ export const getAdvisorResponse = async (chatHistory: { role: 'user' | 'model'; 
         bachelor_programs: programsRaw.filter(p => p.degree_type.includes('BS') || p.degree_type.includes('BA') || p.degree_type.includes('BFA') || p.degree_type.includes('BSW')).length,
         minor_programs: programsRaw.filter(p => p.degree_type.includes('minor')).length,
         master_programs: programsRaw.filter(p => p.degree_type.includes('MS') || p.degree_type.includes('MA') || p.degree_type.includes('MBA')).length,
+        total_professors: allProfessors.length,
     };
 
     try {
@@ -106,7 +72,7 @@ export const getAdvisorResponse = async (chatHistory: { role: 'user' | 'model'; 
                     avg_rating: prof.avg_rating,
                     num_ratings: prof.num_ratings,
                     would_take_again_percent: prof.would_take_again_percent,
-                    courses_taught: prof.courses_taught?.slice(0, 10), // Limit courses for token usage
+                    courses_taught: prof.courses_taught,
                 }))
             }),
         });
