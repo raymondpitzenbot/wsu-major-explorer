@@ -1,10 +1,8 @@
 
 
-
 import OpenAI from "openai";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Redis } from "@upstash/redis";
-import { programsRaw, interestMappings } from "../data/wsuData.js";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const UPSTASH_REDIS_REST_URL = process.env.UPSTASH_REDIS_REST_URL;
@@ -35,7 +33,7 @@ function getClientIp(req: NextApiRequest) {
 }
 
 async function applyRateLimiter(req: NextApiRequest): Promise<boolean> {
-  if (!redis) return true; // Fail open if no redis for now, or true to block? User might prefer open for dev.
+  if (!redis) return true;
   const ip = getClientIp(req);
   if (ip === "unknown") return true;
   const dayKey = new Date().toISOString().slice(0, 10);
@@ -93,20 +91,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(413).json({ error: `Message too long.` });
     }
 
-    // Hybrid Context Lookup: Search for relevant programs based on keywords
-    const lowerQuery = userQuery.toLowerCase();
-    const matchedPrograms = programsRaw.filter(p => {
-      const nameMatch = p.program_name.toLowerCase().includes(lowerQuery);
-      const keywordMatch = Object.values(interestMappings).some(interest =>
-        interest.keywords.some(kw => lowerQuery.includes(kw) && p.program_name.toLowerCase().includes(kw))
-      );
-      return nameMatch || keywordMatch;
-    }).slice(0, 5); // Limiting context to keep costs low
-
-    const contextSnippet = matchedPrograms.length > 0
-      ? "\n\nRelevant WSU Programs to consider:\n" + matchedPrograms.map(p => `- ${p.program_name}: ${p.short_description}`).join("\n")
-      : "";
-
     const trimmedHistory = chatHistory
       .slice(-MAX_HISTORY_MESSAGES)
       .map((msg: any) => {
@@ -117,11 +101,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const systemInstruction =
       `You are "Warrior Bot," a friendly AI assistant for Winona State University. ` +
-      `Your goal is to help students explore academic programs. ` +
-      `Use the following context if relevant to provide accurate answers. ` +
-      `Always be encouraging and remind users to speak with an official WSU advisor. ` +
-      `Return PLAIN TEXT ONLY. NO MARKDOWN. NO BOLDING.**` +
-      contextSnippet;
+      `Your goal is to help students explore academic programs at WSU. ` +
+      `Provide helpful, encouraging advice about choosing majors and careers. ` +
+      `Always remind users to speak with an official WSU academic advisor for personalized guidance. ` +
+      `Return PLAIN TEXT ONLY. NO MARKDOWN. NO BOLDING.`;
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",

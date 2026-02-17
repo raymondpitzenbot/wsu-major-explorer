@@ -1,0 +1,48 @@
+{
+    "programs": [],
+    "interestMappings": {
+        "creative": {
+            "id": "creative",
+            "keywords": [
+                "art",
+                "design",
+                "creative",
+                "music",
+                "theater",
+                "performance"
+            ]
+        },
+        "analytical": {
+            "id": "analytical",
+            "keywords": [
+                "data",
+                "analysis",
+                "research",
+                "science",
+                "math",
+                "statistics"
+            ]
+        },
+        "helping": {
+            "id": "helping",
+            "keywords": [
+                "helping",
+                "care",
+                "support",
+                "social",
+                "teaching",
+                "education"
+            ]
+        },
+        "business": {
+            "id": "business",
+            "keywords": [
+                "business",
+                "management",
+                "finance",
+                "marketing",
+                "accounting"
+            ]
+        }
+    }
+}
