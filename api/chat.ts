@@ -68,7 +68,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(429).json({ error: "Daily message limit exceeded. Please try again tomorrow." });
     }
 
-    const { chatHistory, userQuery, programContext, professorContext } = req.body;
+    const { chatHistory, userQuery, programContext, professorContext, wsuStats } = req.body;
 
     if (!userQuery || typeof userQuery !== "string" || !Array.isArray(chatHistory)) {
       return res.status(400).json({ error: "Invalid request body" });
@@ -91,10 +91,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(413).json({ error: `Message too long.` });
     }
 
-    // Build context snippet from frontend-provided programs
+    // Build context with WSU statistics
     let contextSnippet = "";
+    if (wsuStats) {
+      contextSnippet = `\n\nWSU Quick Facts:\n` +
+        `- Total Programs: ${wsuStats.total_programs}\n` +
+        `- Bachelor's Degrees: ${wsuStats.bachelor_programs}\n` +
+        `- Minors: ${wsuStats.minor_programs}\n` +
+        `- Master's Programs: ${wsuStats.master_programs}`;
+    }
+
+    // Build context snippet from frontend-provided programs
     if (programContext && Array.isArray(programContext) && programContext.length > 0) {
-      contextSnippet = "\n\nRelevant WSU Programs:\n" +
+      contextSnippet += "\n\nRelevant WSU Programs:\n" +
         programContext.slice(0, 5).map((p: any) =>
           `- ${p.program_name} (${p.degree_type}): ${p.program_credits || 'varies'} credits. ${p.short_description || ''}`
         ).join("\n");

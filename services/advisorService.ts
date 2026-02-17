@@ -41,6 +41,14 @@ export const getAdvisorResponse = async (chatHistory: { role: 'user' | 'model'; 
         return nameMatch || courseMatch;
     }).slice(0, 5); // Limit to 5 most relevant professors
 
+    // Generate WSU statistics for general queries
+    const wsuStats = {
+        total_programs: programsRaw.length,
+        bachelor_programs: programsRaw.filter(p => p.degree_type.includes('BS') || p.degree_type.includes('BA') || p.degree_type.includes('BFA') || p.degree_type.includes('BSW')).length,
+        minor_programs: programsRaw.filter(p => p.degree_type.includes('minor')).length,
+        master_programs: programsRaw.filter(p => p.degree_type.includes('MS') || p.degree_type.includes('MA') || p.degree_type.includes('MBA')).length,
+    };
+
     try {
         const response = await fetch("/api/chat", {
             method: 'POST',
@@ -50,6 +58,7 @@ export const getAdvisorResponse = async (chatHistory: { role: 'user' | 'model'; 
             body: JSON.stringify({
                 chatHistory,
                 userQuery,
+                wsuStats,
                 programContext: matchedPrograms.map(p => ({
                     program_name: p.program_name,
                     degree_type: p.degree_type,
