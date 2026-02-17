@@ -33,13 +33,47 @@ export const getAdvisorResponse = async (chatHistory: { role: 'user' | 'model'; 
     }).slice(0, 5); // Limit to 5 most relevant programs
 
     // Search for relevant professors based on the user's query
-    const matchedProfessors = allProfessors.filter((prof: any) => {
-        const nameMatch = prof.name.toLowerCase().includes(lowerQuery);
-        const courseMatch = prof.courses_taught?.some((course: string) =>
-            lowerQuery.includes(course.toLowerCase())
-        );
-        return nameMatch || courseMatch;
-    }).slice(0, 5); // Limit to 5 most relevant professors
+    const matchedProfessors: any[] = [];
+    const deptKeywordMap: { [key: string]: string[] } = {
+        'english_dept': ['english', 'literature', 'writing', 'film'],
+        'math_dept': ['math', 'mathematics', 'calculus', 'algebra', 'statistics'],
+        'cs_dept': ['computer science', 'programming', 'software', 'cs'],
+        'business_dept': ['business', 'management', 'marketing', 'finance', 'accounting'],
+        'biology_dept': ['biology', 'bio', 'life science'],
+        'chemistry_dept': ['chemistry', 'chem'],
+        'physics_dept': ['physics'],
+        'psychology_dept': ['psychology', 'psych'],
+        'nursing_dept': ['nursing', 'nurse', 'healthcare'],
+        'education_dept': ['education', 'teaching', 'teacher'],
+        'history_dept': ['history', 'historical'],
+        'art_dept': ['art', 'design', 'visual'],
+        'music_dept': ['music', 'musical'],
+        'theater_dept': ['theater', 'theatre', 'drama'],
+    };
+
+    // Check if query matches any department
+    let matchedDept: string | null = null;
+    for (const [dept, keywords] of Object.entries(deptKeywordMap)) {
+        if (keywords.some(kw => lowerQuery.includes(kw))) {
+            matchedDept = dept;
+            break;
+        }
+    }
+
+    // If department matched, get professors from that department
+    if (matchedDept && professorsData[matchedDept as keyof typeof professorsData]) {
+        matchedProfessors.push(...(professorsData[matchedDept as keyof typeof professorsData] as any[]).slice(0, 10));
+    } else {
+        // Fall back to searching by name or course
+        const searchResults = allProfessors.filter((prof: any) => {
+            const nameMatch = prof.name.toLowerCase().includes(lowerQuery);
+            const courseMatch = prof.courses_taught?.some((course: string) =>
+                lowerQuery.includes(course.toLowerCase())
+            );
+            return nameMatch || courseMatch;
+        });
+        matchedProfessors.push(...searchResults.slice(0, 5));
+    }
 
     // Generate WSU statistics for general queries
     const wsuStats = {

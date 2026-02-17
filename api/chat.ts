@@ -131,6 +131,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       `Provide helpful, encouraging advice about choosing majors and careers. ` +
       `When program details are provided below, use them to give accurate information about credits and requirements. ` +
       `When professor information is provided below, use it to help students compare professors and make informed decisions about course selection. ` +
+      `CRITICAL: If asked about specific professors or faculty for a program, ONLY mention professors from the list below. If no professors are listed, say "I don't have specific faculty information for that program" instead of guessing. ` +
       `Occasionally (not every message) remind users that they should consult with an official WSU academic advisor for personalized guidance. ` +
       `Return PLAIN TEXT ONLY. NO MARKDOWN. NO BOLDING.` +
       contextSnippet;
