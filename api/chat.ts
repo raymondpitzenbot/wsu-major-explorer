@@ -4,7 +4,7 @@
 import OpenAI from "openai";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Redis } from "@upstash/redis";
-import { programsRaw, interestMappings } from "../data/wsuData";
+import { programsRaw, interestMappings } from "../data/wsuData.js";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const UPSTASH_REDIS_REST_URL = process.env.UPSTASH_REDIS_REST_URL;
