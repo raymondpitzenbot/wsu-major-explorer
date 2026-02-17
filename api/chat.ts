@@ -130,12 +130,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       `Your goal is to help students explore academic programs at WSU. ` +
       `Below you'll find WSU statistics, program details, and professor information that may be relevant to the user's question. ` +
       `PRIORITY RULE: Always prioritize the specific WSU data provided below over your general knowledge. If WSU-specific information is available, use it exclusively. Only fall back to general knowledge if no relevant WSU data is provided. ` +
+      `If asked about information not in the WSU data provided (like tuition costs, admission deadlines, campus events, etc.), use the web_search function to find current, accurate information from official WSU sources. ` +
       `Use your intelligence to determine which information is actually relevant - not everything provided will apply to every question. ` +
       `When answering about programs, use the specific details provided (credits, descriptions). ` +
       `When answering about professors, ONLY mention those listed below - if none are listed or relevant, say so honestly. Never make up professor names or information. ` +
       `Occasionally (not every message) remind users that they should consult with an official WSU academic advisor for personalized guidance. ` +
       `Return PLAIN TEXT ONLY. NO MARKDOWN. NO BOLDING.` +
       contextSnippet;
+
+    const tools = [
+      {
+        type: "function" as const,
+        function: {
+          name: "web_search",
+          description: "Searches the web for current information about Winona State University. Use this when asked about information not in the provided WSU data, such as tuition costs, admission requirements, campus events, deadlines, etc.",
+          parameters: {
+            type: "object",
+            properties: {
+              query: {
+                type: "string",
+                description: "The search query. Include 'Winona State' or 'WSU' to get WSU-specific results."
+              }
+            },
+            required: ["query"]
+          }
+        }
+      }
+    ];
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
@@ -146,9 +167,38 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ],
       max_tokens: MAX_OUTPUT_TOKENS,
       temperature: 0.7,
+      tools,
+      tool_choice: "auto"
     });
 
-    const responseText = completion.choices[0]?.message?.content ?? "I'm sorry, I couldn't process that.";
+    let responseText = completion.choices[0]?.message?.content ?? "";
+    const toolCalls = completion.choices[0]?.message?.tool_calls;
+
+    // Handle web search function call
+    if (toolCalls && toolCalls.length > 0) {
+      const searchCall = toolCalls[0];
+      if (searchCall.function.name === "web_search") {
+        const args = JSON.parse(searchCall.function.arguments);
+        const searchQuery = args.query;
+
+        try {
+          // Use Google search via HTTP (simple, no API key needed for basic results)
+          const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
+
+          // For now, inform the user we attempted to search but need an API
+          responseText = `I tried to search for current information about "${searchQuery}" but I need a search API to be configured. ` +
+            `For the most current information about tuition, costs, and deadlines, I recommend visiting the official Winona State University website at winona.edu or contacting the admissions office directly.`;
+
+          // TODO: Implement actual search API (Google Custom Search, Brave Search, or SerpAPI)
+          // For now, provide a helpful fallback response
+        } catch (error) {
+          console.error("Web search error:", error);
+          responseText = "I wasn't able to search for that information right now. For current details about tuition and costs, please visit winona.edu or contact WSU admissions.";
+        }
+      }
+    } else if (!responseText) {
+      responseText = "I'm sorry, I couldn't process that.";
+    }
 
     // Simple cache for identical queries (1 hour TTL)
     if (redis) {
